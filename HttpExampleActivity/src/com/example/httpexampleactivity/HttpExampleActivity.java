@@ -11,6 +11,9 @@ import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -22,29 +25,41 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+@SuppressLint("NewApi")
 public class HttpExampleActivity extends Activity {
 	private static final String DEBUG_TAG = "HttpdExample";
 	private EditText urlText;
 	private TextView textView;
 	private ProgressBar progressBar;
+	private ScrollView scrollView;
+	private int mShortAnimationDuration;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_http_example);
+		
+		scrollView = (ScrollView) findViewById(R.id.content);
 		urlText = (EditText) findViewById(R.id.myUrl);
 		textView = (TextView) findViewById(R.id.myText);
 		progressBar = (ProgressBar) findViewById(R.id.myProgressBar);
-		progressBar.setVisibility(View.INVISIBLE);
+
+		scrollView.setAlpha(1f);
+		scrollView.setVisibility(View.VISIBLE);
+		progressBar.setVisibility(View.GONE);
+		
+		this.mShortAnimationDuration = this.getResources().getInteger(android.R.integer.config_shortAnimTime);
 	}
 	
 	// When user clicks button, calls AsyncTask.
 	// Before attempting to fetch the URL, makes sure that there is a network connection.
 	public void myClickHandler(View view) {
-		textView.setText("");
+		scrollView.setVisibility(View.GONE);
 		progressBar.setVisibility(View.VISIBLE);
+		progressBar.setAlpha(1f);
 		// Gets the URL from the UI's text field.
 		String stringUrl = urlText.getText().toString();
 		ConnectivityManager connMgr = (ConnectivityManager)
@@ -78,8 +93,14 @@ public class HttpExampleActivity extends Activity {
 		// onPostExecute displays the results of the AsyncTask
 		@Override
 		protected void onPostExecute(String result) {
-			progressBar.setVisibility(View.INVISIBLE);
 			textView.setText(result);
+			scrollView.setVisibility(View.VISIBLE);
+			scrollView.animate().alpha(1f).setDuration(mShortAnimationDuration).setListener(new AnimatorListenerAdapter() {
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					progressBar.setAlpha(0f);
+				}
+			});
 			/*
 			try {
 				JSONObject responseJSON = new JSONObject(result);
