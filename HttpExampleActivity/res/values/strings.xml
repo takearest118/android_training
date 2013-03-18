@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HttpExampleActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="my_url_hint">Input URL</string>
+    <string name="my_text_hint">Display response of your request.</string>
+    <string name="move_button">Move</string>
+    <string name="default_url">http://www.naver.com</string>
+</resources>

@@ -14,6 +14,20 @@
 
 package com.example.android.networkusage;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+
+import org.xmlpull.v1.XmlPullParserException;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -31,19 +45,7 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import com.example.android.networkusage.R;
 import com.example.android.networkusage.StackOverflowXmlParser.Entry;
-
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
 
 
 /**
@@ -64,9 +66,11 @@ import java.util.List;
 public class NetworkActivity extends Activity {
     public static final String WIFI = "Wi-Fi";
     public static final String ANY = "Any";
-    private static final String URL =
-            "http://stackoverflow.com/feeds/tag?tagnames=android&sort=newest";
+    //private static final String URL =
+    //        "http://stackoverflow.com/feeds/tag?tagnames=android&sort=newest";
 
+    private static final String URL =
+    		"https://api.trello.com/1/members/kunheecho?key=1e7c44c52c59b2268711e5c8aae8decc";
     // Whether there is a Wi-Fi connection.
     private static boolean wifiConnected = false;
     // Whether there is a mobile connection.
@@ -233,7 +237,7 @@ public class NetworkActivity extends Activity {
 
         try {
             stream = downloadUrl(urlString);
-            entries = stackOverflowXmlParser.parse(stream);
+            //entries = stackOverflowXmlParser.parse(stream);
         // Makes sure that the InputStream is closed after the app is
         // finished using it.
         } finally {
@@ -241,7 +245,11 @@ public class NetworkActivity extends Activity {
                 stream.close();
             }
         }
-
+        
+        String res = readIt(stream, 100);
+        htmlString.append(res);
+        
+        /*
         // StackOverflowXmlParser returns a List (called "entries") of Entry objects.
         // Each Entry object represents a single post in the XML feed.
         // This section processes the entries list to combine each entry with HTML markup.
@@ -257,6 +265,7 @@ public class NetworkActivity extends Activity {
                 htmlString.append(entry.summary);
             }
         }
+        */
         return htmlString.toString();
     }
 
@@ -317,5 +326,14 @@ public class NetworkActivity extends Activity {
                 Toast.makeText(context, R.string.lost_connection, Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    
+    // Reads an InputStream and converts it to a String.
+    public String readIt(InputStream stream, int len) throws IOException, UnsupportedEncodingException {
+    	Reader reader = null;
+    	reader = new InputStreamReader(stream, "UTF-8");
+    	char[] buffer = new char[len];
+    	reader.read(buffer);
+    	return new String(buffer);
     }
 }
