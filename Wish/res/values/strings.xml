@@ -3,6 +3,55 @@
 
     <string name="app_name">Wish</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+	
+	<string name="home_tab">Home</string>
+	<string name="profile_tab">Profile</string>
+	<string name="friends_tab">Friends</string>
+	<string name="more_tab">More</string>
+	
+	<string name="notify_button">N</string>
+	<string name="category_button">Wish</string>
+	
+	<string name="more_setting">Setting</string>
+	<string name="more_notify">Notify</string>
+	<string name="more_invite_friend">Invite</string>
+	
+	<string-array name="dump_friends_array">
+	    <item>Kevin Cho</item>
+	    <item>Eddie Choe</item>
+	    <item>John Bae</item>
+	    <item>Erin Lee</item>
+	    <item>Sean Kim</item>
+	    <item>Christy Kim</item>
+	    <item>Michael Baeg</item>
+	    <item>Kevin Cho</item>
+	    <item>Eddie Choe</item>
+	    <item>John Bae</item>
+	    <item>Erin Lee</item>
+	    <item>Sean Kim</item>
+	    <item>Christy Kim</item>
+	    <item>Michael Baeg</item>
+   	    <item>Kevin Cho</item>
+	    <item>Eddie Choe</item>
+	    <item>John Bae</item>
+	    <item>Erin Lee</item>
+	    <item>Sean Kim</item>
+	    <item>Christy Kim</item>
+	    <item>Michael Baeg</item>
+   	</string-array>
+   	
+	<string-array name="dump_category_array">
+   	    <item>WISH</item>
+	    <item>Lego</item>
+	    <item>IT Gadget</item>
+	    <item>APPLE</item>
+	    <item>GOOGLE</item>
+	    <item>Shoes</item>
+	    <item>Watch</item>
+	    <item>All</item>
+	    <item>Women</item>
+	    <item>Men</item>
+	    <item>Compute</item>
+	</string-array>	
 
 </resources>

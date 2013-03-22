@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">위시</string>
+    <string name="action_settings">설정</string>
+    
+	<string name="items_tab">홈</string>
+	<string name="profile_tab">프로필</string>
+	<string name="friends_tab">친구</string>
+	<string name="more_tab">더보기</string>
+	
+	<string name="more_setting">설정</string>
+	<string name="more_notify">공지사항</string>
+	<string name="more_invite_friend">친구초대</string>
+	
+		
+	<string-array name="dump_friends_array">
+	    <item>조건희</item>
+	    <item>최지훈</item>
+	    <item>배종운</item>
+	    <item>이에린</item>
+	    <item>김현규</item>
+	    <item>김수정</item>
+	    <item>백명현</item>
+	    <item>조건희</item>
+	    <item>최지훈</item>
+	    <item>배종운</item>
+	    <item>이에린</item>
+	    <item>김현규</item>
+	    <item>김수정</item>
+	    <item>백명현</item>
+   	    <item>조건희</item>
+	    <item>최지훈</item>
+	    <item>배종운</item>
+	    <item>이에린</item>
+	    <item>김현규</item>
+	    <item>김수정</item>
+	    <item>백명현</item>
+	</string-array>
+		
+	<string-array name="dump_category_array">
+   	    <item>위시</item>
+	    <item>레고</item>
+	    <item>IT기기</item>
+	    <item>애플</item>
+	    <item>구글</item>
+	    <item>신발</item>
+	    <item>시계</item>
+	    <item>전체</item>
+	    <item>여성</item>
+	    <item>남성</item>
+	    <item>컴퓨터</item>
+	</string-array>	
+	
+</resources>

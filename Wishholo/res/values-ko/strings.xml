@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">위시</string>
+    
+    <string name="action_settings">설정</string>
+    <string name="action_settings_toast">설정을 선택하였습니다.</string>
+    <string name="action_search">검색</string>
+    <string name="action_search_toast">검색을 선택하였습니다.</string>
+    <string name="action_refresh">다시읽기</string>
+    <string name="action_refresh_toast">다시읽기를 선택하였습니다.</string>
+    <string name="action_notifications">새소식</string>
+    <string name="action_notifications_toast">새소식을 선택하였습니다.</string>
+    
+    <string name="title_section1">홈</string>
+    <string name="title_section2">프로필</string>
+    <string name="title_section3">친구</string>
+    <string name="title_section4">더보기</string>
+    
+</resources>
