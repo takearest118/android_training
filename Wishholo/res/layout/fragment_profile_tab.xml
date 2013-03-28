@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/profile_tab"
+    android:baselineAligned="false"
+    android:background="#F9F9F9"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp" >
+
+        <ImageView
+            android:id="@+id/profile_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/profile_photo" />
+
+        <ImageView
+            android:id="@+id/profile_wish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/profile_photo"
+            android:layout_toRightOf="@+id/profile_photo"
+            android:src="@drawable/profile_wish" />
+
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/profile_wish"
+            android:layout_alignLeft="@+id/profile_wish"
+            android:text="Han ga in"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/profile_wish_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/profile_wish"
+            android:layout_toRightOf="@+id/profile_wish"
+            android:text="1,928"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <ImageView
+            android:id="@+id/profile_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/profile_wish_count"
+            android:layout_toRightOf="@+id/profile_wish_count"
+            android:src="@drawable/profile_friends" />
+
+        <TextView
+            android:id="@+id/profile_invite_friend_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/profile_friends"
+            android:layout_toRightOf="@+id/profile_friends"
+            android:text="56"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </RelativeLayout>
+
+	<GridView
+	    android:id="@+id/profile_tab_grid_view"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_weight="1"
+	    android:numColumns="2"
+	    android:stretchMode="columnWidth" >
+
+    </GridView>
+    
+</LinearLayout>

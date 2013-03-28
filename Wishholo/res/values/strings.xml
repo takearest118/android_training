@@ -2,7 +2,12 @@
 <resources>
 
     <string name="app_name">Wish</string>
+    <string name="app_desc">Shopping Made Fun</string>
     
+    <string name="logo_wish_desc">This is a logo of Wish</string>
+    
+    <string name="action_help">Help</string>
+    <string name="action_help_toast">Action help selected</string>
     <string name="action_settings">Settings</string>
     <string name="action_settings_toast">Action settings selected</string>
     <string name="action_search">Search</string>
@@ -16,5 +21,9 @@
     <string name="title_section2">Profile</string>
     <string name="title_section3">Friends</string>
     <string name="title_section4">More</string>
+    
+    <string name="item_image_desc">Thumb Image</string>
+    <string name="item_wish_button">Wish</string>
+    <string name="item_recommend_button">Recommend</string>
     
 </resources>

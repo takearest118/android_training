@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="kr.contextlogic.wish.MainActivity"
+            android:name="kr.contextlogic.wish.activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="kr.contextlogic.wish.IntroActivity"
+            android:name="kr.contextlogic.wish.activity.IntroActivity"
             android:screenOrientation="portrait" >
         </activity>
         

@@ -3,6 +3,8 @@
 
     <string name="app_name">위시</string>
     
+    <string name="action_help">도움말</string>
+    <string name="action_help_toast">도움말을 선택하였습니다.</string>
     <string name="action_settings">설정</string>
     <string name="action_settings_toast">설정을 선택하였습니다.</string>
     <string name="action_search">검색</string>
@@ -16,5 +18,8 @@
     <string name="title_section2">프로필</string>
     <string name="title_section3">친구</string>
     <string name="title_section4">더보기</string>
+    
+    <string name="item_wish_button">위시</string>
+    <string name="item_recommend_button">추천</string>
     
 </resources>
