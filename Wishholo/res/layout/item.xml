@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item"
-    android:layout_width="wrap_content"
+    android:layout_width="0dip"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
     
@@ -25,19 +25,21 @@
 
         <Button
             android:id="@+id/item_wish_button"
-            android:textSize="14sp"
+            android:textSize="12sp"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:onClick="clickWish"
             android:text="@string/item_wish_button" />
 
         <Button
             android:id="@+id/item_recommend_button"
-            android:textSize="14sp"
+            android:textSize="12sp"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="match_parent"
+            android:layout_width="0dip"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:onClick="clickRecommend"
             android:text="@string/item_recommend_button" />
         	

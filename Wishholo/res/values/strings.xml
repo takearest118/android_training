@@ -16,6 +16,8 @@
     <string name="action_refresh_toast">Action refresh selected</string>
     <string name="action_notifications">Noti</string>
     <string name="action_notifications_toast">Action notifications selected</string>
+    <string name="action_share">Share</string>
+    <string name="action_share_toast">Action share selected</string>
     
     <string name="title_section1">Home</string>
     <string name="title_section2">Profile</string>
@@ -26,4 +28,21 @@
     <string name="item_wish_button">Wish</string>
     <string name="item_recommend_button">Recommend</string>
     
+    <string name="more_settings">SETTINGS</string>
+    <string name="more_info">INFO</string>
+    <string name="more_invite">INVITE</string>
+    
+	<string-array name="dump_friends_array">
+	    <item>Kevin Cho</item>
+	    <item>Eddie Choe</item>
+	    <item>John Bae</item>
+	    <item>Erin Lee</item>
+	    <item>Sean Kim</item>
+	    <item>Christy Kim</item>
+	    <item>Michael Baeg</item>
+	    <item>Alex Chung</item>
+	    <item>Bruce Park</item>
+	    <item>Wish CS</item>
+	    <item>Android inc</item>
+   	</string-array>
 </resources>

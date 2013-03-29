@@ -8,10 +8,6 @@ import kr.contextlogic.wishholo.adapter.MoreImageAdapter;
 import kr.contextlogic.wishholo.adapter.ProfileImageAdapter;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
@@ -26,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -33,7 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity implements
-		ActionBar.TabListener, LoaderManager.LoaderCallbacks<Cursor> {
+		ActionBar.TabListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -50,11 +47,6 @@ public class MainActivity extends FragmentActivity implements
 	 */
 	ViewPager mViewPager;
 	
-	/**
-	 * Identifies a particular Loader being used in this component
-	 */
-	private static final int URL_LOADER = 0;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,10 +58,6 @@ public class MainActivity extends FragmentActivity implements
 		actionBar.setTitle(R.string.app_name);
 		actionBar.setSubtitle(R.string.app_desc);
 		
-        // Initializes the CursorLoader
-        getLoaderManager().initLoader(URL_LOADER, null, this);
-
-
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -121,6 +109,9 @@ public class MainActivity extends FragmentActivity implements
 			break;
 		case R.id.action_refresh:
 			Toast.makeText(this, R.string.action_refresh_toast, Toast.LENGTH_SHORT).show();
+			break;
+		case R.id.action_share:
+			Toast.makeText(this, R.string.action_share_toast, Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.action_settings:
 			Toast.makeText(this, R.string.action_settings_toast, Toast.LENGTH_SHORT).show();
@@ -315,9 +306,20 @@ public class MainActivity extends FragmentActivity implements
 	public static class DummyFriendsSectionFragment extends Fragment {
 		public static final String ARG_SECTION_FRIENDS = "section_friends";
 		
+		private SimpleCursorAdapter mCursorAdapter;
+		
 		public DummyFriendsSectionFragment() {
 		}
 		
+		private final String[] PROJECTION = {
+				ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+		};
+		
+		private final int[] TO = {
+			R.id.friend_name
+		};
+	   
+
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -331,19 +333,41 @@ public class MainActivity extends FragmentActivity implements
 					
 				}
 			});
-			
+
+			ArrayAdapter<CharSequence> friendsAdapter;
+			friendsAdapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.dump_friends_array, android.R.layout.simple_list_item_1);
+			mFriendsListView = (ListView) rootView.findViewById(R.id.friends_tab_list_view);
+			mFriendsListView.setAdapter(friendsAdapter);
+
 			/*
-			SimpleCursorAdapter mAdapter =
-					new SimpleCursorAdapter(
-							this.getActivity(),
-							R
-					);
-					*/
-//			mFriendsListView.setAdapter(new FriendsAdapter(this.getActivity()));
+			Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+			String selection = "((" + ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " NOTNULL))";
+			String[] selectionArgs = null;
+			String sortOrder = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " COLLATE LOCALIZED ASC";
+			
+			CursorLoader cl = new CursorLoader(
+					this.getActivity(),
+					uri,
+					PROJECTION,
+					selection,
+					selectionArgs,
+					sortOrder);
+			
+			this.mCursorAdapter = new SimpleCursorAdapter(
+					this.getActivity(),
+					R.id.friends_tab_list_view,
+					cl.loadInBackground(),
+					this.PROJECTION,
+					this.TO);
+			
+			mFriendsListView.setAdapter(this.mCursorAdapter);
+			*/
+
 			return rootView;
 		}
 	}
-
+	
+		
 	public static class DummyMoreSectionFragment extends Fragment {
 		public static final String ARG_SECTION_MORE = "section_more";
 		
@@ -366,45 +390,6 @@ public class MainActivity extends FragmentActivity implements
 			mMoreGridView.setAdapter(new MoreImageAdapter(this.getActivity()));
 			return rootView;
 		}
-	}
-	
-	private static final String[] PROJECTION =
-	    {
-			ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
-			ContactsContract.CommonDataKinds.Phone.NUMBER,
-			ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME
-	    };
-   
-	@Override
-	public Loader<Cursor> onCreateLoader(int loaderID, Bundle bundle) {
-		// TODO Auto-generated method stub
-		switch(loaderID) {
-		case URL_LOADER:
-			// Returns a new CursorLoader
-			return new CursorLoader(
-					this,													// Parent activity context
-					ContactsContract.CommonDataKinds.Phone.CONTENT_URI,		// Table to query
-					PROJECTION, 											// Projection to return
-					null, 													// No selection clause
-					null,													// No selection arguments
-					null													// Default sort order
-					);
-		default:
-			// An invalid id was passed in
-			return null;
-		}
-	}
-
-	@Override
-	public void onLoadFinished(Loader<Cursor> arg0, Cursor arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onLoaderReset(Loader<Cursor> arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -12,6 +12,9 @@ public final class R {
         public static final int fadein=0x7f040000;
         public static final int fadeout=0x7f040001;
     }
+    public static final class array {
+        public static final int dump_friends_array=0x7f070000;
+    }
     public static final class attr {
     }
     public static final class dimen {
@@ -55,33 +58,37 @@ public final class R {
         public static final int tab_profile=0x7f02001b;
     }
     public static final class id {
-        public static final int action_help=0x7f09001a;
-        public static final int action_notifications=0x7f090017;
-        public static final int action_refresh=0x7f090018;
-        public static final int action_search=0x7f090016;
-        public static final int action_settings=0x7f090019;
-        public static final int friends_tab=0x7f090002;
-        public static final int friends_tab_list_view=0x7f090003;
-        public static final int home_tab=0x7f090004;
-        public static final int home_tab_grid_view=0x7f090005;
-        public static final int item=0x7f090011;
-        public static final int item_buttons_layout=0x7f090013;
-        public static final int item_image=0x7f090012;
-        public static final int item_recommend_button=0x7f090015;
-        public static final int item_wish_button=0x7f090014;
-        public static final int logo_wish=0x7f090000;
-        public static final int more_tab=0x7f090007;
-        public static final int more_tab_grid_view=0x7f090008;
-        public static final int pager=0x7f090001;
-        public static final int profile_friends=0x7f09000e;
-        public static final int profile_invite_friend_count=0x7f09000f;
-        public static final int profile_name=0x7f09000c;
-        public static final int profile_photo=0x7f09000a;
-        public static final int profile_tab=0x7f090009;
-        public static final int profile_tab_grid_view=0x7f090010;
-        public static final int profile_wish=0x7f09000b;
-        public static final int profile_wish_count=0x7f09000d;
-        public static final int section_label=0x7f090006;
+        public static final int action_help=0x7f0a001e;
+        public static final int action_notifications=0x7f0a001a;
+        public static final int action_refresh=0x7f0a001b;
+        public static final int action_search=0x7f0a0019;
+        public static final int action_settings=0x7f0a001d;
+        public static final int action_share=0x7f0a001c;
+        public static final int friend_badge=0x7f0a0011;
+        public static final int friend_name=0x7f0a0012;
+        public static final int friend_phone=0x7f0a0013;
+        public static final int friends_tab=0x7f0a0002;
+        public static final int friends_tab_list_view=0x7f0a0003;
+        public static final int home_tab=0x7f0a0004;
+        public static final int home_tab_grid_view=0x7f0a0005;
+        public static final int item=0x7f0a0014;
+        public static final int item_buttons_layout=0x7f0a0016;
+        public static final int item_image=0x7f0a0015;
+        public static final int item_recommend_button=0x7f0a0018;
+        public static final int item_wish_button=0x7f0a0017;
+        public static final int logo_wish=0x7f0a0000;
+        public static final int more_tab=0x7f0a0007;
+        public static final int more_tab_grid_view=0x7f0a0008;
+        public static final int pager=0x7f0a0001;
+        public static final int profile_friends=0x7f0a000e;
+        public static final int profile_invite_friend_count=0x7f0a000f;
+        public static final int profile_name=0x7f0a000c;
+        public static final int profile_photo=0x7f0a000a;
+        public static final int profile_tab=0x7f0a0009;
+        public static final int profile_tab_grid_view=0x7f0a0010;
+        public static final int profile_wish=0x7f0a000b;
+        public static final int profile_wish_count=0x7f0a000d;
+        public static final int section_label=0x7f0a0006;
     }
     public static final class layout {
         public static final int activity_intro=0x7f030000;
@@ -91,10 +98,11 @@ public final class R {
         public static final int fragment_main_dummy=0x7f030004;
         public static final int fragment_more_tab=0x7f030005;
         public static final int fragment_profile_tab=0x7f030006;
-        public static final int item=0x7f030007;
+        public static final int friend=0x7f030007;
+        public static final int item=0x7f030008;
     }
     public static final class menu {
-        public static final int main=0x7f080000;
+        public static final int main=0x7f090000;
     }
     public static final class string {
         public static final int action_help=0x7f060003;
@@ -107,16 +115,21 @@ public final class R {
         public static final int action_search_toast=0x7f060008;
         public static final int action_settings=0x7f060005;
         public static final int action_settings_toast=0x7f060006;
+        public static final int action_share=0x7f06000d;
+        public static final int action_share_toast=0x7f06000e;
         public static final int app_desc=0x7f060001;
         public static final int app_name=0x7f060000;
-        public static final int item_image_desc=0x7f060011;
-        public static final int item_recommend_button=0x7f060013;
-        public static final int item_wish_button=0x7f060012;
+        public static final int item_image_desc=0x7f060013;
+        public static final int item_recommend_button=0x7f060015;
+        public static final int item_wish_button=0x7f060014;
         public static final int logo_wish_desc=0x7f060002;
-        public static final int title_section1=0x7f06000d;
-        public static final int title_section2=0x7f06000e;
-        public static final int title_section3=0x7f06000f;
-        public static final int title_section4=0x7f060010;
+        public static final int more_info=0x7f060017;
+        public static final int more_invite=0x7f060018;
+        public static final int more_settings=0x7f060016;
+        public static final int title_section1=0x7f06000f;
+        public static final int title_section2=0x7f060010;
+        public static final int title_section3=0x7f060011;
+        public static final int title_section4=0x7f060012;
     }
     public static final class style {
         /** 
@@ -140,10 +153,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
+        public static final int AppTheme=0x7f080001;
     }
 }

@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/profile_wish"
             android:layout_alignLeft="@+id/profile_wish"
-            android:text="Han ga in"
+            android:text="Dotoriermuk"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
