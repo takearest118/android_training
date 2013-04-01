@@ -8,6 +8,7 @@ import kr.contextlogic.wishholo.adapter.MoreImageAdapter;
 import kr.contextlogic.wishholo.adapter.ProfileImageAdapter;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
@@ -109,9 +110,6 @@ public class MainActivity extends FragmentActivity implements
 			break;
 		case R.id.action_refresh:
 			Toast.makeText(this, R.string.action_refresh_toast, Toast.LENGTH_SHORT).show();
-			break;
-		case R.id.action_share:
-			Toast.makeText(this, R.string.action_share_toast, Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.action_settings:
 			Toast.makeText(this, R.string.action_settings_toast, Toast.LENGTH_SHORT).show();
@@ -217,6 +215,9 @@ public class MainActivity extends FragmentActivity implements
 	}
 	
 	public void clickItem(View view) {
+		Intent intent = new Intent(this, DetailItemActivity.class);
+		this.startActivity(intent);
+		this.overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_forward_leave);
 		Toast.makeText(this, R.string.item_image_desc, Toast.LENGTH_SHORT).show();
 	}
 	
@@ -227,6 +228,11 @@ public class MainActivity extends FragmentActivity implements
 	public void clickRecommend(View view) {
 		Toast.makeText(this, R.string.item_recommend_button, Toast.LENGTH_SHORT).show();
 	}
+	
+	public void clickShare(View view) {
+		Toast.makeText(this, R.string.detail_item_action_share_toast, Toast.LENGTH_SHORT).show();
+	}
+
 
 	/**
 	 * A dummy fragment representing a section of the app, but that simply

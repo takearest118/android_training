@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
@@ -12,6 +13,7 @@
         android:id="@+id/action_notifications"
         android:orderInCategory="100"
         android:showAsAction="always"
+        android:numericShortcut="77"
         android:icon="@drawable/action_notifications"
         android:title="@string/action_notifications"/>
     <item
@@ -20,12 +22,6 @@
         android:showAsAction="never"
         android:icon="@drawable/action_refresh"
         android:title="@string/action_refresh"/>
-    <item
-        android:id="@+id/action_share"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:actionProviderClass="android.widget.ShareActionProvider"
-        android:title="@string/action_share"/>
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

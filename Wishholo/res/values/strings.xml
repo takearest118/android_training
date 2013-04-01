@@ -16,8 +16,8 @@
     <string name="action_refresh_toast">Action refresh selected</string>
     <string name="action_notifications">Noti</string>
     <string name="action_notifications_toast">Action notifications selected</string>
-    <string name="action_share">Share</string>
-    <string name="action_share_toast">Action share selected</string>
+    
+    <string name="action_backhome">Back Home</string>
     
     <string name="title_section1">Home</string>
     <string name="title_section2">Profile</string>
@@ -31,6 +31,14 @@
     <string name="more_settings">SETTINGS</string>
     <string name="more_info">INFO</string>
     <string name="more_invite">INVITE</string>
+    
+    <string name="detail_item_action_share">Share</string>
+    <string name="detail_item_action_share_toast">Action share selected</string>
+    <string name="detail_item_action_wish_not">Wishe</string>
+    <string name="detail_item_action_reply">Reply</string>
+	<string name="detail_item_action_recommend">Recommend</string>
+	<string name="detail_item_action_info">Info</string>
+        
     
 	<string-array name="dump_friends_array">
 	    <item>Kevin Cho</item>
