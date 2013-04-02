@@ -11,6 +11,7 @@ import android.app.ActionBar;
 import android.app.ActivityOptions;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -212,14 +213,20 @@ public class MainActivity extends FragmentActivity implements
 			case 2:
 				return R.drawable.tab_friends;
 			case 3:
-				return R.drawable.action_settings;
+				//return R.drawable.action_settings;
+				return Resources.getSystem().getIdentifier("ic_menu_more", "drawable", "android");
 			}
 			return -1;
 		}
 	}
 	
+	public final static String ITEM_ID = "kr.contextlogic.wish.item_id";
+	
 	public void clickItem(View view) {
 		Intent intent = new Intent(MainActivity.this, DetailItemActivity.class);
+		/*
+		intent.putExtra(ITEM_ID, this.getResources().getDrawable(view.getId()).toString());
+		*/
 		this.startActivity(intent);
 		this.overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_forward_leave);
 		Toast.makeText(this, R.string.item_image_desc, Toast.LENGTH_SHORT).show();

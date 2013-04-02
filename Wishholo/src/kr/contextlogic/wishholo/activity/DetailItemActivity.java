@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class DetailItemActivity extends Activity {
@@ -14,7 +15,17 @@ public class DetailItemActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.setContentView(R.layout.activity_detail_item);
+
+		/*
+		// Get the id of item from the intent
+		Intent intent = getIntent();
+		String drawable = intent.getStringExtra(MainActivity.ITEM_ID);
+		ImageView itemView = (ImageView) this.findViewById(R.id.item_image);
 		
+		itemView.setImageResource(drawable);
+		*/
+
 		ActionBar actionBar = this.getActionBar();
 		actionBar.setCustomView(R.layout.actionbar_top);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_CUSTOM);
