@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/detail_item_action_share"
         style="?android:attr/actionButtonStyle"
-        android:src="@drawable/social_share"
-        android:onClick="clickShare"/>
+        android:src="@drawable/social_share" />
 
 </LinearLayout>

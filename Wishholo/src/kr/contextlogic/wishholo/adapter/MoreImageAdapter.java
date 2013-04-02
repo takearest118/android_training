@@ -5,8 +5,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager.LayoutParams;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 
 public class MoreImageAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
@@ -36,6 +39,8 @@ public class MoreImageAdapter extends BaseAdapter {
 		ImageView imageView;
 		if(convertView == null) {
 			imageView = new ImageView(mInflater.getContext());
+			imageView.setLayoutParams(new GridView.LayoutParams(LayoutParams.WRAP_CONTENT, 128));
+			imageView.setScaleType(ScaleType.FIT_CENTER);
 			imageView.setImageResource(mThumbIds[position]);
 		}else {
 			imageView = (ImageView) convertView;

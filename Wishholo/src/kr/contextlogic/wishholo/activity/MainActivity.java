@@ -6,9 +6,13 @@ import kr.contextlogic.wishholo.R;
 import kr.contextlogic.wishholo.adapter.HomeImageAdapter;
 import kr.contextlogic.wishholo.adapter.MoreImageAdapter;
 import kr.contextlogic.wishholo.adapter.ProfileImageAdapter;
+import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.app.ActivityOptions;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
@@ -215,13 +219,21 @@ public class MainActivity extends FragmentActivity implements
 	}
 	
 	public void clickItem(View view) {
-		Intent intent = new Intent(this, DetailItemActivity.class);
+		Intent intent = new Intent(MainActivity.this, DetailItemActivity.class);
 		this.startActivity(intent);
 		this.overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_forward_leave);
 		Toast.makeText(this, R.string.item_image_desc, Toast.LENGTH_SHORT).show();
 	}
 	
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	public void clickWish(View view) {
+		Intent intent = new Intent(MainActivity.this, DetailItemActivity.class);
+		Bundle b = null;
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+			Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+			b = ActivityOptions.makeThumbnailScaleUpAnimation(view, bitmap, 0, 0).toBundle();
+		}
+		this.startActivity(intent, b);
 		Toast.makeText(this, R.string.item_wish_button, Toast.LENGTH_SHORT).show();
 	}
 	

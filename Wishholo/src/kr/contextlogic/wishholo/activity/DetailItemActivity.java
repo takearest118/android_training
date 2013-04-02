@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 public class DetailItemActivity extends Activity {
@@ -48,8 +47,4 @@ public class DetailItemActivity extends Activity {
 		return true;
 	}
 	
-	public void clickShare(View view) {
-		Toast.makeText(this, R.string.detail_item_action_share_toast, Toast.LENGTH_SHORT).show();
-	}
-
 }

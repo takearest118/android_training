@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/profile_tab"
     android:baselineAligned="false"
-    android:background="#F9F9F9"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
@@ -10,21 +9,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#C3C3C3"
         android:padding="16dp" >
 
         <ImageView
             android:id="@+id/profile_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/profile_photo" />
+            android:contentDescription="profile_photo"
+            android:src="@drawable/yura" />
 
         <ImageView
             android:id="@+id/profile_wish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="profile wish_icon"
             android:layout_alignBottom="@+id/profile_photo"
             android:layout_toRightOf="@+id/profile_photo"
+            android:paddingLeft="16dp"
             android:src="@drawable/profile_wish" />
 
         <TextView
@@ -33,7 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/profile_wish"
             android:layout_alignLeft="@+id/profile_wish"
-            android:text="Dotoriermuk"
+            android:paddingLeft="16dp"
+            android:text="YURA"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -51,6 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/profile_wish_count"
             android:layout_toRightOf="@+id/profile_wish_count"
+            android:contentDescription="profile_friends_icon"
+            android:paddingLeft="16dp"
             android:src="@drawable/profile_friends" />
 
         <TextView
@@ -64,14 +70,17 @@
 
     </RelativeLayout>
 
-	<GridView
+   	<GridView
 	    android:id="@+id/profile_tab_grid_view"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
+	    android:layout_width="wrap_content"
+	    android:layout_height="0dip"
 	    android:layout_weight="1"
-	    android:numColumns="2"
-	    android:stretchMode="columnWidth" >
-
+	    android:horizontalSpacing="5dp"
+	    android:numColumns="auto_fit"
+	    android:padding="5dp"
+	    android:stretchMode="columnWidth"
+	    android:background="#D3D3D3"
+	    android:verticalSpacing="5dp" >
     </GridView>
-    
+	
 </LinearLayout>
