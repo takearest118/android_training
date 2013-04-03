@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/detail_item_action_like"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/detail_item_action_like"/>
+    <item
+        android:id="@+id/detail_item_action_reply"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/detail_item_action_reply"/>
+    <item
+        android:id="@+id/detail_item_action_info"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:actionProviderClass="android.widget.ShareActionProvider"
+        android:title="@string/detail_item_action_info" />
+</menu>

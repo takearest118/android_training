@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">걸스데이</string>
+    <string name="action_settings">설정</string>
+
+    <string name="click_item">아이템 선택</string>
+
+    <string name="detail_item_action_like">좋아요</string>
+    <string name="detail_item_action_like_toast">좋아요를 선택</string>
+    <string name="detail_item_action_reply">댓글쓰기</string>
+    <string name="detail_item_action_reply_toast">댓글쓰기 선택</string>
+    <string name="detail_item_action_info">상세보기</string>
+    <string name="detail_item_action_info_toast">상세보기 선택</string>
+    
+</resources>

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="item_image"
         android:scaleType="centerInside"
-        android:src="@drawable/sample_3"/>
+        android:src="@drawable/sample_3" />
 
     <TextView
         android:id="@+id/item_title"
