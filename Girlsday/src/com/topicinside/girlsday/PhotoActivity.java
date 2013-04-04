@@ -43,11 +43,7 @@ public class PhotoActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
 		case android.R.id.home:
-			Intent intent = new Intent(this, DetailItemActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			intent.putExtra("image_id", image_id);
-			startActivity(intent);
-			this.overridePendingTransition(R.anim.slide_backward_enter, R.anim.slide_backward_leave);
+			backDetailItemActivity();
 			break;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -56,18 +52,16 @@ public class PhotoActivity extends Activity {
 	}
 	
 	public void clickImage(View view) {
-		switch(this.mode) {
-		case FULL:
-			this.mode = SCREEN_MODE.NORMAL;
-			actionBar.show();
-			break;
-		case NORMAL:
-			this.mode = SCREEN_MODE.FULL;
-			actionBar.hide();
-			break;
-		}
+		backDetailItemActivity();
 	}
 	
+	public void backDetailItemActivity() {
+		Intent intent = new Intent(this, DetailItemActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.putExtra("image_id", image_id);
+		startActivity(intent);
+		this.overridePendingTransition(R.anim.slide_backward_enter, R.anim.slide_backward_leave);
+	}
 	private Integer[] mThumbIds = {
 			R.drawable.girlsday_sample00,
 			R.drawable.girlsday_sample01,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
@@ -12,7 +12,33 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:scaleType="centerInside"
-        android:contentDescription="intro_girlsday"
-        android:src="@drawable/girlsday_intro" />
+        android:contentDescription="intro_image"
+        android:src="@drawable/girlsday_sample17" />
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical" >
+    
+	    <ImageButton
+	        android:id="@+id/facebook_login"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginRight="16dp"
+	        android:onClick="clickFacebook"
+	        android:src="@android:drawable/btn_star" />
+	
+	    <ImageButton
+	        android:id="@+id/guest_login"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginRight="16dp"
+	        android:onClick="clickGuest"
+	        android:src="@android:drawable/btn_star" />
+
+    </LinearLayout>
+
+</FrameLayout>

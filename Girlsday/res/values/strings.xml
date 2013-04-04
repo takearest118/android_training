@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">Girlsday</string>
+    <string name="app_id">168059013349612</string>
     
 	<string name="action_refresh">Refresh</string>
 	<string name="action_refresh_toast">Selected Refresh</string>
