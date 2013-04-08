@@ -8,13 +8,14 @@
 	    android:id="@+id/item_grid_view"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:horizontalSpacing="5dp"
-	    android:numColumns="auto_fit"
-	    android:padding="5dp"
-	    android:stretchMode="columnWidth"
 	    android:background="#D3D3D3"
 	    android:gravity="center"
+	    android:horizontalSpacing="5dp"
+	    android:numColumns="1"
+	    android:padding="5dp"
+	    android:stretchMode="columnWidth"
 	    android:verticalSpacing="5dp" >
+
     </GridView>
     
 </RelativeLayout>
