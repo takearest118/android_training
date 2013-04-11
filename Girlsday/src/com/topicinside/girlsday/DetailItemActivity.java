@@ -1,19 +1,36 @@
 package com.topicinside.girlsday;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DetailItemActivity extends Activity {
-	
-	public int image_id = -1;
 
+	private Image item;
+	
+	private ImageView itemView;
+	private TextView itemTitle;
+	private TextView writerDate;
+	private TextView writerName;
+	private ImageView writerPhoto;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,10 +38,27 @@ public class DetailItemActivity extends Activity {
 
 		// Get the id of item from the intent
 		Intent intent = getIntent();
-		image_id = intent.getIntExtra("image_id", -1);
-		ImageView itemView = (ImageView) this.findViewById(R.id.item_image);
+		item = intent.getExtras().getParcelable("IMAGE");
+		itemView = (ImageView) this.findViewById(R.id.item_image);
 		
-		itemView.setImageResource(mThumbIds[image_id]);
+		itemTitle = (TextView) this.findViewById(R.id.item_title);
+		itemTitle.setText(item.getName());
+		
+		writerDate = (TextView) this.findViewById(R.id.writer_date);
+		writerDate.setText(item.getCreatedtime());
+		
+		/*
+		writerName = (TextView) this.findViewById(R.id.writer_name);
+		writerName.setText(item.getWriterName());
+		*/
+		
+		itemView.setTag(item.getSource());
+		new DownLoadImageBitmap().execute(itemView);
+		
+		/*
+		writerPhoto.setTag(item.getWriterPhoto());
+		new DownLoadImageBitmap().execute(writerPhoto);
+		*/
 
 		ActionBar actionBar = this.getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -44,7 +78,6 @@ public class DetailItemActivity extends Activity {
 		case android.R.id.home:
 			Intent intent = new Intent(this, MainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			intent.putExtra("image_id", image_id);
 			startActivity(intent);
 			this.overridePendingTransition(R.anim.slide_backward_enter, R.anim.slide_backward_leave);
 			break;
@@ -65,53 +98,62 @@ public class DetailItemActivity extends Activity {
 	
 	public void clickItemImage(View view) {
 		Intent intent = new Intent(DetailItemActivity.this, PhotoActivity.class);
-		intent.putExtra("image_id", image_id);
+//		intent.putExtra("image_id", image_id);
+		intent.putExtra("IMAGE", item);
 		this.startActivity(intent);
 		this.overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_forward_leave);
 	}
 	
-	private Integer[] mThumbIds = {
-			R.drawable.girlsday_sample00,
-			R.drawable.girlsday_sample01,
-			R.drawable.girlsday_sample02,
-			R.drawable.girlsday_sample03,
-			R.drawable.girlsday_sample04,
-			R.drawable.girlsday_sample05,
-			R.drawable.girlsday_sample06,
-			R.drawable.girlsday_sample07,
-			R.drawable.girlsday_sample08,
-			R.drawable.girlsday_sample09,
-			R.drawable.girlsday_sample10
-			/*
-			R.drawable.girlsday_sample11,
-			R.drawable.girlsday_sample12,
-			R.drawable.girlsday_sample13,
-			R.drawable.girlsday_sample14,
-			R.drawable.girlsday_sample15,
-			R.drawable.girlsday_sample16,
-			R.drawable.girlsday_sample17,
-			R.drawable.girlsday_sample18,
-			R.drawable.girlsday_sample19,
-			R.drawable.girlsday_sample20,
-			R.drawable.girlsday_sample21,
-			R.drawable.girlsday_sample22,
-			R.drawable.girlsday_sample23,
-			R.drawable.girlsday_sample24,
-			R.drawable.girlsday_sample25,
-			R.drawable.girlsday_sample26,
-			R.drawable.girlsday_sample27,
-			R.drawable.girlsday_sample28,
-			R.drawable.girlsday_sample29,
-			R.drawable.girlsday_sample30,
-			R.drawable.girlsday_sample31,
-			R.drawable.girlsday_sample32,
-			R.drawable.girlsday_sample33,
-			R.drawable.girlsday_sample34,
-			R.drawable.girlsday_sample35,
-			R.drawable.girlsday_sample36,
-			R.drawable.girlsday_sample37,
-			R.drawable.girlsday_sample38
-			*/
-	};
+	public class DownLoadImageBitmap extends AsyncTask<ImageView, Integer, Bitmap> {
+		
+		private static final String DEBUG_TAG = "DownLoadImageBitmap";
+		
+		private ImageView imageView = null;
+
+		@Override
+		protected Bitmap doInBackground(ImageView... imageViews) {
+			
+			// params comes from the execute() call: params[0] is the url.
+			try {
+				this.imageView = imageViews[0];
+				return downloadUrl((String)this.imageView.getTag());
+			}catch(IOException e) {
+				return null;
+			}
+		}
+
+		// onPostExecute displays the results of the AsyncTask
+		@Override
+		protected void onPostExecute(Bitmap result) {
+			this.imageView.setImageBitmap(result);
+		}
+		
+		private Bitmap downloadUrl(String myurl) throws IOException {
+			InputStream is = null;
+			Bitmap bm = null;
+			
+			try {
+				URL url = new URL(myurl);
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setReadTimeout(10000 /* milliseconds */);
+				conn.setConnectTimeout(15000 /* milliseconds */);
+				conn.setRequestMethod("GET");
+				conn.setDoInput(true);
+				// Starts the query
+				conn.connect();
+				int response = conn.getResponseCode();
+				Log.d(DEBUG_TAG, "The response is: " + response);
+				is = conn.getInputStream();
+				BufferedInputStream bis = new BufferedInputStream(is);
+				bm = BitmapFactory.decodeStream(bis);
+				bis.close();
+			}finally {
+				if(is != null) {
+					is.close();
+				}
+			}
+			return bm;
+		}
+	}
 
 }

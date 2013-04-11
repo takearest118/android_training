@@ -43,7 +43,6 @@
 	            android:layout_height="wrap_content"
 	            android:layout_alignLeft="@+id/writer_name"
 	            android:layout_below="@+id/writer_name"
-	            android:text="3월 29일"
 	            android:textAppearance="?android:attr/textAppearanceSmall" />
 	        
 	    </RelativeLayout>
@@ -53,7 +52,6 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="16dp"
-	        android:text="오늘 KBS 뮤직뱅크 보면 뽀뽀해준다며 유라양이... from. 유라 트위터"
 	        android:textAppearance="?android:attr/textAppearanceMedium" />
 	
 	

@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
+	private ArrayList<Image> imageList;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,9 +23,8 @@ public class MainActivity extends Activity {
 		
 		this.getIntent().getExtras().getParcelableArrayList("IMAGES");
 		GridView imageView = (GridView) this.findViewById(R.id.item_grid_view);
-		ArrayList<Image> imageList = this.getIntent().getExtras().getParcelableArrayList("IMAGES");
-		ImageAdapter ia = new ImageAdapter(this, mThumbIds, imageList);
-//		ImageAdapter ia = new ImageAdapter(this, mThumbIds);
+		imageList = this.getIntent().getExtras().getParcelableArrayList("IMAGES");
+		ImageAdapter ia = new ImageAdapter(this, imageList);
 		imageView.setAdapter(ia);
 	}
 	
@@ -52,54 +53,10 @@ public class MainActivity extends Activity {
 	public void clickItem(View view) {
 		ImageView imageView = (ImageView)view;
 		Intent intent = new Intent(MainActivity.this, DetailItemActivity.class);
-		intent.putExtra("image_id", imageView.getId());
+		intent.putExtra("IMAGE", imageList.get(imageView.getId()));
 		this.startActivity(intent);
 		this.overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_forward_leave);
 		Toast.makeText(this, R.string.click_item, Toast.LENGTH_SHORT).show();
 	}
 	
-	private Integer[] mThumbIds = {
-			R.drawable.girlsday_sample00,
-			R.drawable.girlsday_sample01,
-			R.drawable.girlsday_sample02,
-			R.drawable.girlsday_sample03,
-			R.drawable.girlsday_sample04,
-			R.drawable.girlsday_sample05,
-			R.drawable.girlsday_sample06,
-			R.drawable.girlsday_sample07,
-			R.drawable.girlsday_sample08,
-			R.drawable.girlsday_sample09,
-			R.drawable.girlsday_sample10
-			/*
-			R.drawable.girlsday_sample11,
-			R.drawable.girlsday_sample12,
-			R.drawable.girlsday_sample13,
-			R.drawable.girlsday_sample14,
-			R.drawable.girlsday_sample15,
-			R.drawable.girlsday_sample16,
-			R.drawable.girlsday_sample17,
-			R.drawable.girlsday_sample18,
-			R.drawable.girlsday_sample19,
-			R.drawable.girlsday_sample20,
-			R.drawable.girlsday_sample21,
-			R.drawable.girlsday_sample22,
-			R.drawable.girlsday_sample23,
-			R.drawable.girlsday_sample24,
-			R.drawable.girlsday_sample25,
-			R.drawable.girlsday_sample26,
-			R.drawable.girlsday_sample27,
-			R.drawable.girlsday_sample28,
-			R.drawable.girlsday_sample29,
-			R.drawable.girlsday_sample30,
-			R.drawable.girlsday_sample31,
-			R.drawable.girlsday_sample32,
-			R.drawable.girlsday_sample33,
-			R.drawable.girlsday_sample34,
-			R.drawable.girlsday_sample35,
-			R.drawable.girlsday_sample36,
-			R.drawable.girlsday_sample37,
-			R.drawable.girlsday_sample38
-			*/
-	};
-
 }

@@ -1,9 +1,20 @@
 package com.topicinside.girlsday;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,9 +27,11 @@ public class PhotoActivity extends Activity {
 	};
 	
 	public SCREEN_MODE mode = SCREEN_MODE.FULL;
-	public int image_id = -1;
 	
 	ActionBar actionBar;
+	
+	private Image item;
+	private ImageView itemView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +39,13 @@ public class PhotoActivity extends Activity {
 		setContentView(R.layout.activity_photo);
 		
 		this.mode = SCREEN_MODE.FULL;
+		
 		// Get the id of item from the intent
 		Intent intent = getIntent();
-		image_id = intent.getIntExtra("image_id", -1);
-		ImageView itemView = (ImageView) this.findViewById(R.id.item_image);
-		
-		itemView.setImageResource(mThumbIds[image_id]);
+		item = intent.getExtras().getParcelable("IMAGE");
+		itemView = (ImageView) this.findViewById(R.id.item_image);
+		itemView.setTag(item.getSource());
+		new DownLoadImageBitmap().execute(itemView);
 
 		actionBar = this.getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -58,51 +72,70 @@ public class PhotoActivity extends Activity {
 	public void backDetailItemActivity() {
 		Intent intent = new Intent(this, DetailItemActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		intent.putExtra("image_id", image_id);
 		startActivity(intent);
 		this.overridePendingTransition(R.anim.slide_backward_enter, R.anim.slide_backward_leave);
 	}
-	private Integer[] mThumbIds = {
-			R.drawable.girlsday_sample00,
-			R.drawable.girlsday_sample01,
-			R.drawable.girlsday_sample02,
-			R.drawable.girlsday_sample03,
-			R.drawable.girlsday_sample04,
-			R.drawable.girlsday_sample05,
-			R.drawable.girlsday_sample06,
-			R.drawable.girlsday_sample07,
-			R.drawable.girlsday_sample08,
-			R.drawable.girlsday_sample09,
-			R.drawable.girlsday_sample10
-			/*
-			R.drawable.girlsday_sample11,
-			R.drawable.girlsday_sample12,
-			R.drawable.girlsday_sample13,
-			R.drawable.girlsday_sample14,
-			R.drawable.girlsday_sample15,
-			R.drawable.girlsday_sample16,
-			R.drawable.girlsday_sample17,
-			R.drawable.girlsday_sample18,
-			R.drawable.girlsday_sample19,
-			R.drawable.girlsday_sample20,
-			R.drawable.girlsday_sample21,
-			R.drawable.girlsday_sample22,
-			R.drawable.girlsday_sample23,
-			R.drawable.girlsday_sample24,
-			R.drawable.girlsday_sample25,
-			R.drawable.girlsday_sample26,
-			R.drawable.girlsday_sample27,
-			R.drawable.girlsday_sample28,
-			R.drawable.girlsday_sample29,
-			R.drawable.girlsday_sample30,
-			R.drawable.girlsday_sample31,
-			R.drawable.girlsday_sample32,
-			R.drawable.girlsday_sample33,
-			R.drawable.girlsday_sample34,
-			R.drawable.girlsday_sample35,
-			R.drawable.girlsday_sample36,
-			R.drawable.girlsday_sample37,
-			R.drawable.girlsday_sample38
-			*/
-	};
+
+	public class DownLoadImageBitmap extends AsyncTask<ImageView, Integer, Bitmap> {
+		
+		private static final String DEBUG_TAG = "DownLoadImageBitmap";
+		
+		private ImageView imageView = null;
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... values) {
+			super.onProgressUpdate(values);
+		}
+
+		@Override
+		protected Bitmap doInBackground(ImageView... imageViews) {
+			
+			// params comes from the execute() call: params[0] is the url.
+			try {
+				this.imageView = imageViews[0];
+				return downloadUrl((String)this.imageView.getTag());
+			}catch(IOException e) {
+				return null;
+			}
+		}
+
+		// onPostExecute displays the results of the AsyncTask
+		@Override
+		protected void onPostExecute(Bitmap result) {
+			this.imageView.setImageBitmap(result);
+		}
+		
+		private Bitmap downloadUrl(String myurl) throws IOException {
+			InputStream is = null;
+			Bitmap bm = null;
+			
+			try {
+				URL url = new URL(myurl);
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setReadTimeout(10000 /* milliseconds */);
+				conn.setConnectTimeout(15000 /* milliseconds */);
+				conn.setRequestMethod("GET");
+				conn.setDoInput(true);
+				// Starts the query
+				conn.connect();
+				int response = conn.getResponseCode();
+				Log.d(DEBUG_TAG, "The response is: " + response);
+				is = conn.getInputStream();
+				BufferedInputStream bis = new BufferedInputStream(is);
+				bm = BitmapFactory.decodeStream(bis);
+				bis.close();
+			}finally {
+				if(is != null) {
+					is.close();
+				}
+			}
+			return bm;
+		}
+	}
+
 }

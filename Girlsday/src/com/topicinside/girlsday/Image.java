@@ -1,7 +1,5 @@
 package com.topicinside.girlsday;
 
-import org.json.JSONObject;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,25 +7,42 @@ public class Image implements Parcelable {
 	
 	private String id;
 	private String source;
-	/*
+	private String picture;
 	private String writerId;
 	private String writerName;
 	private String writerPhoto;
 	private String createdtime;
 	private String name;
+	/*
 	private int countLike;
 	private int countComment;
 	private String url;
 	*/
 	
-	public Image(String id, String source) {
+	public Image(String id, String source, String picture, 
+			String writerId, String writerName,
+			String writerPhoto, String createdtime, String name) {
 		super();
 		this.id = id;
 		this.source = source;
+		this.picture = picture;
+		this.writerId = writerId;
+		this.writerName = writerName;
+		this.writerPhoto = writerPhoto;
+		this.createdtime = createdtime;
+		this.name = name;
 	}
-	
-	public Image(JSONObject json) {
+	public Image(String id, String source, String picture, 
+			String createdtime, String name) {
 		super();
+		this.id = id;
+		this.source = source;
+		this.picture = picture;
+		this.writerId = writerId;
+		this.writerName = writerName;
+		this.writerPhoto = writerPhoto;
+		this.createdtime = createdtime;
+		this.name = name;
 	}
 	
 	public Image(Parcel in) {
@@ -49,7 +64,14 @@ public class Image implements Parcelable {
 		this.source = source;
 	}
 
-	/*
+	public String getPicture() {
+		return picture;
+	}
+	
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
 	public String getWriterId() {
 		return writerId;
 	}
@@ -90,6 +112,7 @@ public class Image implements Parcelable {
 		this.name = name;
 	}
 
+	/*
 	public int getCountLike() {
 		return countLike;
 	}
@@ -125,11 +148,23 @@ public class Image implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(id);
 		dest.writeString(source);
+		dest.writeString(picture);
+		dest.writeString(writerId);
+		dest.writeString(writerName);
+		dest.writeString(writerPhoto);
+		dest.writeString(createdtime);
+		dest.writeString(name);
 	}
 	
 	public void readFromParcel(Parcel in) {
 		id = in.readString();
 		source = in.readString();
+		picture = in.readString();
+		writerId = in.readString();
+		writerName = in.readString();
+		writerPhoto = in.readString();
+		createdtime = in.readString();
+		name = in.readString();
 	}
 	
 	public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

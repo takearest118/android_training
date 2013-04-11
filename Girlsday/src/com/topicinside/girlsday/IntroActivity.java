@@ -37,8 +37,9 @@ public class IntroActivity extends FragmentActivity {
 	private IntroFragment introFragment;
 	
 	private ArrayList<Image> imageList;
-	private static final String ROOT_URL = "https://graph.facebook.com/GirlsDayParty?fields=photos.limit(100).type(uploaded).fields(source)";
-
+	private static final String ROOT_URL = "https://graph.facebook.com/GirlsDayParty?fields=photos.limit(100).type(uploaded).fields(name,source,picture,from,link)";
+//	private static final String ROOT_URL = "https://graph.facebook.com/dai5y.gsd?fields=photos.limit(100).type(uploaded).fields(name,source,picture,from,link)";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -121,14 +122,24 @@ public class IntroActivity extends FragmentActivity {
 					JSONObject el = mData.getJSONObject(i);
 					String id = el.getString("id");
 					String source = el.getString("source");
+					String picture = el.getString("picture");
+					/*
+					JSONObject from = el.getJSONObject("from");
+					String writerId = from.getString("id");
+					String writerName = from.getString("name");
+					String writerPhoto = "http://sphotos-e.ak.fbcdn.net/hphotos-ak-prn1/549410_317248185064811_1589091429_n.png";
+					*/
+					String name = el.getString("name");
+					String createdtime =  el.getString("created_time");
 //					Log.i(DEBUG_TAG, "id: " + id + ", source: " + source);
-					imageList.add(new Image(id, source));
-				}
+//					imageList.add(new Image(id, source, writerId, writerName, writerPhoto, picture, createdtime, name));
+					imageList.add(new Image(id, source, picture, createdtime, name));				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 			for(Image img: imageList) {
-				Log.i(DEBUG_TAG, "id: " + img.getId() + ", source: " + img.getSource());
+//				Log.d(DEBUG_TAG, "id: " + img.getId() + ", source: " + img.getSource());
+				Log.d(DEBUG_TAG, img.toString());
 			}
 			/*
 			textView.setText(result);
