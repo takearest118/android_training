@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
+	static final String STATE_IMAGES = "imageList";
+	
 	private ArrayList<Image> imageList;
 	
 	@Override
@@ -21,13 +23,25 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		this.getIntent().getExtras().getParcelableArrayList("IMAGES");
 		GridView imageView = (GridView) this.findViewById(R.id.item_grid_view);
+		
 		imageList = this.getIntent().getExtras().getParcelableArrayList("IMAGES");
 		ImageAdapter ia = new ImageAdapter(this, imageList);
 		imageView.setAdapter(ia);
 	}
 	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putParcelableArrayList(STATE_IMAGES, imageList);
+		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		imageList = savedInstanceState.getParcelableArrayList(STATE_IMAGES);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

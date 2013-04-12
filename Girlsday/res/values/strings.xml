@@ -18,4 +18,8 @@
     <string name="detail_item_action_info">Info</string>
     <string name="detail_item_action_info_toast">Selected Info</string>
     
+    <string name="intro_guest_button">Guest</string>
+    <string name="intro_loading_title">Loading</string>
+    <string name="intro_loading_message">Please wait</string>
+    
 </resources>

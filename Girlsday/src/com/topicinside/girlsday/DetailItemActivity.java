@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -76,10 +77,13 @@ public class DetailItemActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
 		case android.R.id.home:
+			/*
 			Intent intent = new Intent(this, MainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			this.overridePendingTransition(R.anim.slide_backward_enter, R.anim.slide_backward_leave);
+			*/
+			NavUtils.navigateUpFromSameTask(this);
 			break;
 		case R.id.detail_item_action_like:
 			Toast.makeText(this, R.string.detail_item_action_like_toast, Toast.LENGTH_SHORT).show();

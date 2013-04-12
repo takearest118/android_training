@@ -18,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -40,9 +41,12 @@ public class IntroActivity extends FragmentActivity {
 	private static final String ROOT_URL = "https://graph.facebook.com/GirlsDayParty?fields=photos.limit(100).type(uploaded).fields(name,source,picture,from,link)";
 //	private static final String ROOT_URL = "https://graph.facebook.com/dai5y.gsd?fields=photos.limit(100).type(uploaded).fields(name,source,picture,from,link)";
 	
+	private ProgressDialog pd;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_intro);
 		
 		try {
 	        PackageInfo info = getPackageManager().getPackageInfo(
@@ -58,8 +62,6 @@ public class IntroActivity extends FragmentActivity {
 	    } catch (NoSuchAlgorithmException e) {
 
 	    }
-		
-		setContentView(R.layout.activity_intro);
 		
 		if(savedInstanceState == null) {
 			// Add the fragment on initial activity setup
@@ -90,7 +92,7 @@ public class IntroActivity extends FragmentActivity {
 	public class DownLoadImageUrl extends AsyncTask<String, Integer, String> {
 		
 		private static final String DEBUG_TAG = "DownLoadImageUrl";
-
+		
 		@Override
 		protected String doInBackground(String... urls) {
 			
@@ -100,6 +102,18 @@ public class IntroActivity extends FragmentActivity {
 			}catch(IOException e) {
 				return "Unable to retrieve web page. URL may be invalid.";
 			}
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			pd = ProgressDialog.show(IntroActivity.this, "Loading", "Please wait...");
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... values) {
+			// TODO Auto-generated method stub
+			super.onProgressUpdate(values);
 		}
 
 		// onPostExecute displays the results of the AsyncTask
@@ -129,28 +143,22 @@ public class IntroActivity extends FragmentActivity {
 					String writerName = from.getString("name");
 					String writerPhoto = "http://sphotos-e.ak.fbcdn.net/hphotos-ak-prn1/549410_317248185064811_1589091429_n.png";
 					*/
-					String name = el.getString("name");
+					String name = null;
+					if(el.has("name")) {
+						name = el.getString("name");
+					}
 					String createdtime =  el.getString("created_time");
-//					Log.i(DEBUG_TAG, "id: " + id + ", source: " + source);
 //					imageList.add(new Image(id, source, writerId, writerName, writerPhoto, picture, createdtime, name));
 					imageList.add(new Image(id, source, picture, createdtime, name));				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+			
 			for(Image img: imageList) {
-//				Log.d(DEBUG_TAG, "id: " + img.getId() + ", source: " + img.getSource());
 				Log.d(DEBUG_TAG, img.toString());
 			}
-			/*
-			textView.setText(result);
-			scrollView.setVisibility(View.VISIBLE);
-			scrollView.animate().alpha(1f).setDuration(mShortAnimationDuration).setListener(new AnimatorListenerAdapter() {
-				@Override
-				public void onAnimationEnd(Animator animation) {
-					progressBar.setAlpha(0f);
-				}
-			});
-			*/
+			
+			pd.dismiss();
 		}
 		
 		private String downloadUrl(String myurl) throws IOException {

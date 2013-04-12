@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="13"
         android:targetSdkVersion="17" />
     <uses-permission android:name="android.permission.INTERNET"/>
     
@@ -27,7 +27,11 @@
         <activity android:name="com.topicinside.girlsday.MainActivity"></activity>
         <activity
             android:name="com.topicinside.girlsday.DetailItemActivity"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:parentActivityName="com.topicinside.girlsday.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.topicinside.girlsday.MainActivity" />
         </activity>
         <activity android:name="com.topicinside.girlsday.PhotoActivity">
         </activity>
