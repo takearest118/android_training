@@ -87,6 +87,7 @@ public class IntroActivity extends FragmentActivity {
         intent.putExtra("IMAGES", imageList);
         startActivity(intent);
         this.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        this.finish();
  	}
 
 	public class DownLoadImageUrl extends AsyncTask<String, Integer, String> {
@@ -107,7 +108,11 @@ public class IntroActivity extends FragmentActivity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			pd = ProgressDialog.show(IntroActivity.this, "Loading", "Please wait...");
+			pd = new ProgressDialog(IntroActivity.this);
+			pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			pd.setTitle(R.string.loading_title);
+			pd.setMessage("Please, wait...");
+			pd.show();
 		}
 
 		@Override

@@ -32,6 +32,8 @@ public class PhotoActivity extends Activity {
 	
 	private Image item;
 	private ImageView itemView;
+	
+	private ProgressDialog pd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +68,9 @@ public class PhotoActivity extends Activity {
 	}
 	
 	public void clickImage(View view) {
+		/*
 		backDetailItemActivity();
+		*/
 	}
 	
 	public void backDetailItemActivity() {
@@ -85,11 +89,18 @@ public class PhotoActivity extends Activity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			pd = new ProgressDialog(PhotoActivity.this);
+			pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			pd.setTitle(R.string.loading_title);
+			pd.setMessage("Please, wait...");
+			pd.setProgress(0);
+			pd.show();
 		}
 
 		@Override
 		protected void onProgressUpdate(Integer... values) {
 			super.onProgressUpdate(values);
+			pd.setProgress(values[0]);
 		}
 
 		@Override
@@ -108,6 +119,7 @@ public class PhotoActivity extends Activity {
 		@Override
 		protected void onPostExecute(Bitmap result) {
 			this.imageView.setImageBitmap(result);
+			pd.dismiss();
 		}
 		
 		private Bitmap downloadUrl(String myurl) throws IOException {
@@ -121,14 +133,18 @@ public class PhotoActivity extends Activity {
 				conn.setConnectTimeout(15000 /* milliseconds */);
 				conn.setRequestMethod("GET");
 				conn.setDoInput(true);
+				pd.setProgress(10);
 				// Starts the query
 				conn.connect();
 				int response = conn.getResponseCode();
+				pd.setProgress(60);
 				Log.d(DEBUG_TAG, "The response is: " + response);
 				is = conn.getInputStream();
 				BufferedInputStream bis = new BufferedInputStream(is);
+				pd.setProgress(80);
 				bm = BitmapFactory.decodeStream(bis);
 				bis.close();
+				pd.setProgress(100);
 			}finally {
 				if(is != null) {
 					is.close();

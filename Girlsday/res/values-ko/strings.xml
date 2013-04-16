@@ -13,8 +13,8 @@
     <string name="detail_item_action_info">상세보기</string>
     <string name="detail_item_action_info_toast">상세보기 선택</string>
     
-    <string name="intro_guest_button">게스트로 입</string>
-    <string name="intro_loading_title">로딩중</string>
-    <string name="intro_loading_message">잠시만 기다리세요</string>
+    <string name="intro_guest_button">게스트로 입장</string>
+    <string name="loading_title">로딩중</string>
+    <string name="loading_message">잠시만 기다리세요…</string>
     
 </resources>

@@ -54,9 +54,7 @@ public class IntroFragment extends Fragment {
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
     	if(state.isOpened()) {
     		Log.i(TAG, "Logged in...");
-//    		requestInfo(session);
-//    		makeMeRequest(session);
-//    		goMainActivity(session);
+    		Toast.makeText(getActivity().getApplicationContext(), "Logged in", Toast.LENGTH_SHORT).show();
     	}else if(state.isClosed()) {
     		Log.i(TAG, "Logged out...");
     	}

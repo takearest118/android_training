@@ -369,8 +369,8 @@ containing a value of this type.
         public static final int detail_item_action_reply=0x7f060022;
         public static final int detail_item_action_reply_toast=0x7f060023;
         public static final int intro_guest_button=0x7f060026;
-        public static final int intro_loading_message=0x7f060028;
-        public static final int intro_loading_title=0x7f060027;
+        public static final int loading_message=0x7f060028;
+        public static final int loading_title=0x7f060027;
     }
     public static final class style {
         /** 

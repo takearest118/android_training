@@ -8,12 +8,12 @@ import java.net.URL;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,7 +62,8 @@ public class DetailItemActivity extends Activity {
 		*/
 
 		ActionBar actionBar = this.getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(false);
+		actionBar.setHomeButtonEnabled(false);
 		actionBar.setTitle(R.string.app_name);
 	}
 	
@@ -83,7 +84,9 @@ public class DetailItemActivity extends Activity {
 			startActivity(intent);
 			this.overridePendingTransition(R.anim.slide_backward_enter, R.anim.slide_backward_leave);
 			*/
+			/*
 			NavUtils.navigateUpFromSameTask(this);
+			*/
 			break;
 		case R.id.detail_item_action_like:
 			Toast.makeText(this, R.string.detail_item_action_like_toast, Toast.LENGTH_SHORT).show();
@@ -113,6 +116,18 @@ public class DetailItemActivity extends Activity {
 		private static final String DEBUG_TAG = "DownLoadImageBitmap";
 		
 		private ImageView imageView = null;
+		
+		private ProgressDialog pd;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			pd = new ProgressDialog(DetailItemActivity.this);
+			pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			pd.setTitle(R.string.loading_title);
+			pd.setMessage("Please, wait...");
+			pd.show();
+		}
 
 		@Override
 		protected Bitmap doInBackground(ImageView... imageViews) {
@@ -130,6 +145,7 @@ public class DetailItemActivity extends Activity {
 		@Override
 		protected void onPostExecute(Bitmap result) {
 			this.imageView.setImageBitmap(result);
+			pd.dismiss();
 		}
 		
 		private Bitmap downloadUrl(String myurl) throws IOException {
