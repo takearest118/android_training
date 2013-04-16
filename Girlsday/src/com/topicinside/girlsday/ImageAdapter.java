@@ -47,6 +47,23 @@ public class ImageAdapter extends BaseAdapter {
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		/*
+		View v = convertView;
+		ViewHolder holder;
+		if(v == null) {
+			holder = new ViewHolder();
+			v = mInflater.inflate(R.layout.item, null);
+			holder.image = (ImageView) v.findViewById(R.id.item_image);
+			holder.image.setTag(imageList.get(position).getPicture());
+			holder.image.setId(position);
+			v.setTag(holder);
+			new DownLoadImageBitmap().execute(holder.image);
+		}else {
+			holder = (ViewHolder) v.getTag();
+		}
+		
+		return v;
+		*/
 		View rootView;
 		rootView = mInflater.inflate(R.layout.item,	null);
 		ImageView imageView = (ImageView) rootView.findViewById(R.id.item_image);
@@ -56,6 +73,10 @@ public class ImageAdapter extends BaseAdapter {
 		imageView.setId(position);
 		
 		return rootView;
+	}
+	
+	class ViewHolder {
+		ImageView image;
 	}
 	
 	public class DownLoadImageBitmap extends AsyncTask<ImageView, Integer, Bitmap> {

@@ -18,6 +18,18 @@ public class Image implements Parcelable {
 	private int countComment;
 	private String url;
 	*/
+
+	public Image(String id, String source, String picture) {
+		super();
+		this.id = id;
+		this.source = source;
+		this.picture = picture;
+		this.writerId = writerId;
+		this.writerName = writerName;
+		this.writerPhoto = writerPhoto;
+		this.createdtime = createdtime;
+		this.name = name;
+	}
 	
 	public Image(String id, String source, String picture, 
 			String writerId, String writerName,

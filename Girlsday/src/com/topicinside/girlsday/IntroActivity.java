@@ -38,8 +38,17 @@ public class IntroActivity extends FragmentActivity {
 	private IntroFragment introFragment;
 	
 	private ArrayList<Image> imageList;
-	private static final String ROOT_URL = "https://graph.facebook.com/GirlsDayParty?fields=photos.limit(100).type(uploaded).fields(name,source,picture,from,link)";
+//	private static final String ROOT_URL = "https://graph.facebook.com/GirlsDayParty?fields=photos.limit(10).type(uploaded).fields(name,source,picture,from,link)";
 //	private static final String ROOT_URL = "https://graph.facebook.com/dai5y.gsd?fields=photos.limit(100).type(uploaded).fields(name,source,picture,from,link)";
+	private static final String ROOT_URL = "https://graph.facebook.com" +
+			"/GirlsDayParty" +
+			"/photos" +
+			"?limit=10" +
+			"&type=uploaded" +
+			"&fields=id,picture,source" +
+			"&after=";
+	
+	private String next;
 	
 	private ProgressDialog pd;
 	
@@ -85,6 +94,7 @@ public class IntroActivity extends FragmentActivity {
     public void goMainActivity(Session session) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("IMAGES", imageList);
+        intent.putExtra("next", next);
         startActivity(intent);
         this.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         this.finish();
@@ -133,10 +143,12 @@ public class IntroActivity extends FragmentActivity {
 			try {
 				mGirlsDay = new JSONObject(result);
 //				Log.i(DEBUG_TAG, "id: " + id);
-				JSONObject mPhotos = mGirlsDay.getJSONObject("photos");
+//				JSONObject mPhotos = mGirlsDay.getJSONObject("photos");
 //				Log.i(DEBUG_TAG, "photos: " + mPhotos.toString(4));
-				JSONArray mData = mPhotos.getJSONArray("data");
+				JSONArray mData = mGirlsDay.getJSONArray("data");
 //				Log.i(DEBUG_TAG, "data: " + mData.toString(4));
+				next = mGirlsDay.getJSONObject("paging")
+						.getJSONObject("cursors").getString("after");
 				for(int i=0; i<mData.length(); i++) {
 					JSONObject el = mData.getJSONObject(i);
 					String id = el.getString("id");
@@ -147,14 +159,13 @@ public class IntroActivity extends FragmentActivity {
 					String writerId = from.getString("id");
 					String writerName = from.getString("name");
 					String writerPhoto = "http://sphotos-e.ak.fbcdn.net/hphotos-ak-prn1/549410_317248185064811_1589091429_n.png";
-					*/
 					String name = null;
 					if(el.has("name")) {
 						name = el.getString("name");
 					}
 					String createdtime =  el.getString("created_time");
-//					imageList.add(new Image(id, source, writerId, writerName, writerPhoto, picture, createdtime, name));
-					imageList.add(new Image(id, source, picture, createdtime, name));				}
+					*/
+					imageList.add(new Image(id, source, picture));				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
