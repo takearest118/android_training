@@ -62,8 +62,10 @@ public class MainActivity extends Activity implements OnScrollListener {
 		lockGridView = false;
 		
 		imageView = (GridView) this.findViewById(R.id.item_grid_view);
+		
 		next = this.getIntent().getExtras().getString("next");
 		imageList = this.getIntent().getExtras().getParcelableArrayList("IMAGES");
+		
 		ia = new ImageAdapter(this, imageList);
 		imageView.setAdapter(ia);
 		imageView.setOnScrollListener(this);
@@ -116,13 +118,12 @@ public class MainActivity extends Activity implements OnScrollListener {
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-		/*
-		int count = totalItemCount - visibleItemCount;
-		if(firstVisibleItem >= count && lockGridView == false) {
+		int count = firstVisibleItem + visibleItemCount;
+		if(count >= totalItemCount && lockGridView == false) {
 			// TODO call next page of contents
+			lockGridView = true;
 			new DownLoadImageUrl().execute(ROOT_URL+next);
 		}
-		*/
 		Log.d(DEBUG_TAG, "firstVisibleItem = " + Integer.toString(firstVisibleItem));
 		Log.d(DEBUG_TAG, "visibleItemCount = " + Integer.toString(visibleItemCount));	
 		Log.d(DEBUG_TAG, "totalItemCount = " + Integer.toString(totalItemCount));
@@ -133,6 +134,56 @@ public class MainActivity extends Activity implements OnScrollListener {
 		// TODO Auto-generated method stub
 		Log.d(DEBUG_TAG, "scrollState = " + Integer.toString(scrollState));
 	}
+	
+	
+	
+	private String downloadUrl(String myurl) throws IOException {
+		InputStream is = null;
+		
+		try {
+			URL url = new URL(myurl);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setReadTimeout(10000 /* milliseconds */);
+			conn.setConnectTimeout(15000 /* milliseconds */);
+			conn.setRequestMethod("GET");
+			conn.setDoInput(true);
+			// Starts the query
+			conn.connect();
+			int response = conn.getResponseCode();
+			Log.d(DEBUG_TAG, "The response is: " + response);
+			is = conn.getInputStream();
+			
+			// Convert the InputStream into a string
+			String contentAsString = this.convertStreamToString(is);
+			
+			return contentAsString;
+		}finally {
+			if(is != null) {
+				is.close();
+			}
+		}
+	}
+	
+	public String convertStreamToString(InputStream is) throws IOException {
+		if(is != null) {
+			Writer writer = new StringWriter();
+			
+			char[] buffer = new char[1024];
+			try {
+				Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+				int n;
+				while((n=reader.read(buffer)) != -1) {
+					writer.write(buffer, 0, n);
+				}
+			} finally {
+				is.close();
+			}
+			return writer.toString();
+		}else {
+			return null;
+		}
+	}
+	
 	public class DownLoadImageUrl extends AsyncTask<String, Integer, String> {
 		
 		private static final String DEBUG_TAG = "DownLoadImageUrl";
@@ -170,8 +221,6 @@ public class MainActivity extends Activity implements OnScrollListener {
 			// TODO json object
 //			Log.i(DEBUG_TAG, result);
 			
-			imageList = new ArrayList<Image>();
-
 			JSONObject mGirlsDay;
 			try {
 				mGirlsDay = new JSONObject(result);
@@ -210,10 +259,10 @@ public class MainActivity extends Activity implements OnScrollListener {
 			pd.dismiss();
 			
 			ia.notifyDataSetChanged();
+			lockGridView = false;
 		}
 		
 		private String downloadUrl(String myurl) throws IOException {
-			lockGridView = true;
 			InputStream is = null;
 			
 			try {
@@ -231,7 +280,6 @@ public class MainActivity extends Activity implements OnScrollListener {
 				
 				// Convert the InputStream into a string
 				String contentAsString = this.convertStreamToString(is);
-				lockGridView = false;
 				return contentAsString;
 			}finally {
 				if(is != null) {

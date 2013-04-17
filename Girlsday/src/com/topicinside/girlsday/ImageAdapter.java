@@ -69,7 +69,8 @@ public class ImageAdapter extends BaseAdapter {
 		ImageView imageView = (ImageView) rootView.findViewById(R.id.item_image);
 		
 		imageView.setTag(imageList.get(position).getPicture());
-		new DownLoadImageBitmap().execute(imageView);
+		DownLoadImageBitmap task = new DownLoadImageBitmap();
+		task.execute(imageView);
 		imageView.setId(position);
 		
 		return rootView;
