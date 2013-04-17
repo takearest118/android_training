@@ -94,7 +94,8 @@ public class MainActivity extends Activity implements OnScrollListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
 		case R.id.action_refresh:
-			new DownLoadImageUrl().execute(ROOT_URL+next);
+			imageView.smoothScrollToPosition(0);
+			ia.notifyDataSetChanged();
 			Toast.makeText(this, R.string.action_refresh_toast, Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.action_settings:
@@ -109,7 +110,8 @@ public class MainActivity extends Activity implements OnScrollListener {
 	public void clickItem(View view) {
 		ImageView imageView = (ImageView)view;
 		Intent intent = new Intent(MainActivity.this, DetailItemActivity.class);
-		intent.putExtra("IMAGE", imageList.get(imageView.getId()));
+		intent.putExtra("ID", imageList.get(imageView.getId()).getId());
+		intent.putExtra("SOURCE", imageList.get(imageView.getId()).getSource());
 		this.startActivity(intent);
 		this.overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_forward_leave);
 		Toast.makeText(this, R.string.click_item, Toast.LENGTH_SHORT).show();
@@ -119,7 +121,9 @@ public class MainActivity extends Activity implements OnScrollListener {
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
 		int count = firstVisibleItem + visibleItemCount;
-		if(count >= totalItemCount && lockGridView == false) {
+		if(count >= totalItemCount
+				&& firstVisibleItem != 0
+				&& lockGridView == false) {
 			// TODO call next page of contents
 			lockGridView = true;
 			new DownLoadImageUrl().execute(ROOT_URL+next);

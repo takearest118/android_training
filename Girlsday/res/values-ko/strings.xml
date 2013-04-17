@@ -10,8 +10,13 @@
     <string name="detail_item_action_like_toast">좋아요를 선택</string>
     <string name="detail_item_action_reply">댓글쓰기</string>
     <string name="detail_item_action_reply_toast">댓글쓰기 선택</string>
-    <string name="detail_item_action_info">상세보기</string>
-    <string name="detail_item_action_info_toast">상세보기 선택</string>
+    <string name="detail_item_action_info">더보기</string>
+    <string name="detail_item_action_info_toast">더보기 선택</string>
+    
+    <string name="detail_item_sub_action_kakao">카카오</string>
+    <string name="detail_item_sub_action_kakao_toast">카카오 선택</string>
+    <string name="detail_item_sub_action_detailview">상세보기</string>
+    <string name="detail_item_sub_action_detailview_toast">상세보기 선택</string>
     
     <string name="intro_guest_button">게스트로 입장</string>
     <string name="loading_title">로딩중</string>

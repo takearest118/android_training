@@ -18,6 +18,7 @@
 	        android:onClick="clickItemImage" />
 	    
 	    <RelativeLayout
+	        android:layout_marginTop="8dp"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content" >
 	        <ImageView
@@ -34,7 +35,6 @@
 	            android:layout_alignParentTop="true"
 	            android:layout_marginLeft="8dp"
 	            android:layout_toRightOf="@+id/writer_photo"
-	            android:text="Girl&apos;s Day"
 	            android:textAppearance="?android:attr/textAppearanceMedium" />
 	
 	        <TextView

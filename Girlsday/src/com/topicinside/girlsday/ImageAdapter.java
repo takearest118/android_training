@@ -67,10 +67,16 @@ public class ImageAdapter extends BaseAdapter {
 		View rootView;
 		rootView = mInflater.inflate(R.layout.item,	null);
 		ImageView imageView = (ImageView) rootView.findViewById(R.id.item_image);
-		
-		imageView.setTag(imageList.get(position).getPicture());
-		DownLoadImageBitmap task = new DownLoadImageBitmap();
-		task.execute(imageView);
+
+		Image tmpImg = imageList.get(position);
+		Bitmap tmpBmp = ImageCache.getImage(tmpImg.getPicture());
+		if(tmpBmp == null) {
+			imageView.setTag(tmpImg.getPicture());
+			DownLoadImageBitmap task = new DownLoadImageBitmap();
+			task.execute(imageView);
+		}else {
+			imageView.setImageBitmap(tmpBmp);
+		}
 		imageView.setId(position);
 		
 		return rootView;
@@ -122,6 +128,7 @@ public class ImageAdapter extends BaseAdapter {
 				is = conn.getInputStream();
 				BufferedInputStream bis = new BufferedInputStream(is);
 				bm = BitmapFactory.decodeStream(bis);
+				ImageCache.setImage(myurl, bm);
 				bis.close();
 			}finally {
 				if(is != null) {

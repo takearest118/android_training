@@ -19,6 +19,11 @@ public class Image implements Parcelable {
 	private String url;
 	*/
 
+	public Image(String id) {
+		super();
+		this.id = id;
+	}
+	
 	public Image(String id, String source, String picture) {
 		super();
 		this.id = id;

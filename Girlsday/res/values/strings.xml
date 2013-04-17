@@ -18,6 +18,11 @@
     <string name="detail_item_action_info">Info</string>
     <string name="detail_item_action_info_toast">Selected Info</string>
     
+    <string name="detail_item_sub_action_kakao">Kakao</string>
+    <string name="detail_item_sub_action_kakao_toast">Selected Kakao</string>
+    <string name="detail_item_sub_action_detailview">Detailview</string>
+    <string name="detail_item_sub_action_detailview_toast">Selected Detailview</string>
+    
     <string name="intro_guest_button">Guest</string>
     <string name="loading_title">Loading</string>
     <string name="loading_message">Please, wait…</string>

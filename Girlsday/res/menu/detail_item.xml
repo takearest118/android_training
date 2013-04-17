@@ -5,6 +5,7 @@
         android:id="@+id/detail_item_action_like"
         android:orderInCategory="100"
         android:showAsAction="always"
+        android:icon="@drawable/facebook_like"
         android:title="@string/detail_item_action_like"/>
     <item
         android:id="@+id/detail_item_action_reply"
@@ -15,6 +16,21 @@
         android:id="@+id/detail_item_action_info"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:actionProviderClass="android.widget.ShareActionProvider"
-        android:title="@string/detail_item_action_info" />
+        android:title="@string/detail_item_action_info">
+        <menu>
+		    <group android:id="@+id/group">
+			    <item
+			        android:id="@+id/detail_item_sub_action_kakao"
+			        android:orderInCategory="100"
+			        android:showAsAction="always"
+			        android:title="@string/detail_item_sub_action_kakao"/>
+			
+				<item
+			        android:id="@+id/detail_item_sub_action_detailview"
+			        android:orderInCategory="100"
+			        android:showAsAction="always"
+			        android:title="@string/detail_item_sub_action_detailview"/>
+		    </group>
+		</menu>
+    </item>
 </menu>
