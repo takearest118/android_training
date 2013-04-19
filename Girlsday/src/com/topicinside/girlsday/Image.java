@@ -13,6 +13,7 @@ public class Image implements Parcelable {
 	private String writerPhoto;
 	private String createdtime;
 	private String name;
+	private String link;
 	/*
 	private int countLike;
 	private int countComment;
@@ -62,6 +63,14 @@ public class Image implements Parcelable {
 		this.name = name;
 	}
 	
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
 	public Image(Parcel in) {
 		this.readFromParcel(in);
 	}

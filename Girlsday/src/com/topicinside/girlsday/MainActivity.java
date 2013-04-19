@@ -222,17 +222,10 @@ public class MainActivity extends Activity implements OnScrollListener {
 		// onPostExecute displays the results of the AsyncTask
 		@Override
 		protected void onPostExecute(String result) {
-			// TODO json object
-//			Log.i(DEBUG_TAG, result);
-			
 			JSONObject mGirlsDay;
 			try {
 				mGirlsDay = new JSONObject(result);
-//				Log.i(DEBUG_TAG, "id: " + id);
-//				JSONObject mPhotos = mGirlsDay.getJSONObject("photos");
-//				Log.i(DEBUG_TAG, "photos: " + mPhotos.toString(4));
 				JSONArray mData = mGirlsDay.getJSONArray("data");
-//				Log.i(DEBUG_TAG, "data: " + mData.toString(4));
 				next = mGirlsDay.getJSONObject("paging")
 						.getJSONObject("cursors").getString("after");
 				for(int i=0; i<mData.length(); i++) {
@@ -240,18 +233,8 @@ public class MainActivity extends Activity implements OnScrollListener {
 					String id = el.getString("id");
 					String source = el.getString("source");
 					String picture = el.getString("picture");
-					/*
-					JSONObject from = el.getJSONObject("from");
-					String writerId = from.getString("id");
-					String writerName = from.getString("name");
-					String writerPhoto = "http://sphotos-e.ak.fbcdn.net/hphotos-ak-prn1/549410_317248185064811_1589091429_n.png";
-					String name = null;
-					if(el.has("name")) {
-						name = el.getString("name");
-					}
-					String createdtime =  el.getString("created_time");
-					*/
-					imageList.add(new Image(id, source, picture));				}
+					imageList.add(new Image(id, source, picture));	
+				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

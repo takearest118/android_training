@@ -35,6 +35,8 @@
         </activity>
         <activity android:name="com.topicinside.girlsday.PhotoActivity">
         </activity>
+        <activity android:name="com.topicinside.girlsday.WebViewActivity">
+        </activity>
         <meta-data android:value="@string/app_id" android:name="com.facebook.sdk.ApplicationId"/>
 	</application>
 

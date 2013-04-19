@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -27,6 +28,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +36,8 @@ import android.widget.Toast;
 public class DetailItemActivity extends Activity {
 	
 	private static final String BASE_URL = "http://graph.facebook.com/";
-	private static final String PARAMS = "?fields=name,from,created_time,comments,likes";
+	private static final String LINK_URL = "http://facebook.com/";
+	private static final String PARAMS = "?fields=name,from,created_time,comments,likes,link";
 
 	private Context context;
 	
@@ -67,6 +70,15 @@ public class DetailItemActivity extends Activity {
 		itemTitle = (TextView) this.findViewById(R.id.item_title);
 		writerDate = (TextView) this.findViewById(R.id.writer_date);
 		writerName = (TextView) this.findViewById(R.id.writer_name);
+		writerName.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(DetailItemActivity.this, WebViewActivity.class);
+				intent.putExtra("LINK", LINK_URL + item.getWriterId());
+				startActivity(intent);
+				overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_forward_leave);
+			}
+		});
 		
 		itemView.setTag(item.getSource());
 		new DownLoadImageBitmap().execute(itemView);
@@ -95,6 +107,34 @@ public class DetailItemActivity extends Activity {
 		return true;
 	}
 	
+	public void sendUrlLink() throws NameNotFoundException {
+		// Recommended: Use application context for parameter.
+		KakaoLink kakaoLink = KakaoLink.getLink(getApplicationContext());
+
+		// check, intent is available.
+		if (!kakaoLink.isAvailableIntent()) {
+			Toast.makeText(this, "Not installed KakaoTalk", Toast.LENGTH_SHORT).show();		
+			return;
+		}
+
+		/**
+		 * @param activity
+		 * @param url
+		 * @param message
+		 * @param appId
+		 * @param appVer
+		 * @param appName
+		 * @param encoding
+		 */
+		kakaoLink.openKakaoLink(this, 
+				"http://link.kakao.com/?test-android-app", 
+				"First KakaoLink Message for send url.", 
+				getPackageName(), 
+				getPackageManager().getPackageInfo(getPackageName(), 0).versionName, 
+				"KakaoLink Test App", 
+				"UTF-8");
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
@@ -119,9 +159,27 @@ public class DetailItemActivity extends Activity {
 			Toast.makeText(this, R.string.detail_item_action_info_toast, Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.detail_item_sub_action_kakao:
+			/*
+			Intent kintent = new Intent(Intent.ACTION_SEND);
+			kintent.setType("text/plain");
+			kintent.putExtra(Intent.EXTRA_SUBJECT, "TEST_Subject");
+			kintent.putExtra(Intent.EXTRA_TEXT, "Å×½ºÆ®¸Þ¼¼Áö¿¡¿ä È«È«");
+			kintent.setPackage("com.kakao.talk");
+			startActivity(kintent);
+			*/
+			try {
+				sendUrlLink();
+			} catch (NameNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Toast.makeText(this, R.string.detail_item_sub_action_kakao_toast, Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.detail_item_sub_action_detailview:
+			Intent intent = new Intent(DetailItemActivity.this, WebViewActivity.class);
+			intent.putExtra("LINK", this.item.getLink());
+			this.startActivity(intent);
+			this.overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_forward_leave);
 			Toast.makeText(this, R.string.detail_item_sub_action_detailview_toast, Toast.LENGTH_SHORT).show();
 			break;
 		default:
@@ -132,7 +190,6 @@ public class DetailItemActivity extends Activity {
 	
 	public void clickItemImage(View view) {
 		Intent intent = new Intent(DetailItemActivity.this, PhotoActivity.class);
-//		intent.putExtra("image_id", image_id);
 		intent.putExtra("IMAGE", item);
 		this.startActivity(intent);
 		this.overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_forward_leave);
@@ -235,8 +292,10 @@ public class DetailItemActivity extends Activity {
 			try {
 				JSONObject json = new JSONObject(result);
 				itemTitle.setText(json.getString("name"));
+				item.setWriterId(json.getJSONObject("from").getString("id"));
 				writerName.setText(json.getJSONObject("from").getString("name"));
 				writerDate.setText(json.getString("created_time"));
+				item.setLink(json.getString("link"));
 				int count;
 				count = json.getJSONObject("comments").getJSONArray("data").length();
 				replyMenu.setTitle(
