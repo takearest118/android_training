@@ -12,9 +12,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
@@ -24,9 +26,12 @@ public class ImageAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private ArrayList<Image> imageList;
 	
+	private Display display;
+	
 	public ImageAdapter(Context c, ArrayList<Image> _imageList) {
 		mInflater = LayoutInflater.from(c);
 		this.imageList = _imageList;
+		display = ((WindowManager)c.getSystemService(c.WINDOW_SERVICE)).getDefaultDisplay();
 	}
 	
 
@@ -67,11 +72,12 @@ public class ImageAdapter extends BaseAdapter {
 		View rootView;
 		rootView = mInflater.inflate(R.layout.item,	null);
 		ImageView imageView = (ImageView) rootView.findViewById(R.id.item_image);
+		imageView.getLayoutParams().height = display.getHeight() / 3;
 
 		Image tmpImg = imageList.get(position);
-		Bitmap tmpBmp = ImageCache.getImage(tmpImg.getPicture());
+		Bitmap tmpBmp = ImageCache.getImage(tmpImg.getSource());
 		if(tmpBmp == null) {
-			imageView.setTag(tmpImg.getPicture());
+			imageView.setTag(tmpImg.getSource());
 			DownLoadImageBitmap task = new DownLoadImageBitmap();
 			task.execute(imageView);
 		}else {

@@ -13,13 +13,16 @@
     <string name="detail_item_action_info">더보기</string>
     <string name="detail_item_action_info_toast">더보기 선택</string>
     
-    <string name="detail_item_sub_action_kakao">카카오</string>
+    <string name="detail_item_sub_action_kakao">카카오링크</string>
     <string name="detail_item_sub_action_kakao_toast">카카오 선택</string>
     <string name="detail_item_sub_action_detailview">상세보기</string>
     <string name="detail_item_sub_action_detailview_toast">상세보기 선택</string>
     
-    <string name="intro_guest_button">게스트로 입장</string>
+    <string name="intro_guest_button">손님으로 입장</string>
     <string name="loading_title">로딩중</string>
     <string name="loading_message">잠시만 기다리세요…</string>
+    
+    <string name="kakaolink_title">걸스데이 in 토픽인사이드</string>
+    <string name="kakaolink_message"></string>
     
 </resources>

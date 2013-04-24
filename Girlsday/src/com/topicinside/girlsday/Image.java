@@ -14,6 +14,9 @@ public class Image implements Parcelable {
 	private String createdtime;
 	private String name;
 	private String link;
+	private int width;
+	private int height;
+	
 	/*
 	private int countLike;
 	private int countComment;
@@ -25,16 +28,36 @@ public class Image implements Parcelable {
 		this.id = id;
 	}
 	
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
 	public Image(String id, String source, String picture) {
 		super();
 		this.id = id;
 		this.source = source;
 		this.picture = picture;
-		this.writerId = writerId;
-		this.writerName = writerName;
-		this.writerPhoto = writerPhoto;
-		this.createdtime = createdtime;
-		this.name = name;
+	}
+	
+	public Image(String id, String source, String picture, int width, int height) {
+		super();
+		this.id = id;
+		this.source = source;
+		this.picture = picture;
+		this.width = width;
+		this.height = height;
 	}
 	
 	public Image(String id, String source, String picture, 

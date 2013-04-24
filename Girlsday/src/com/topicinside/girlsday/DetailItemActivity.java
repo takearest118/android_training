@@ -22,6 +22,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +38,7 @@ import android.widget.Toast;
 public class DetailItemActivity extends Activity {
 	
 	private static final String BASE_URL = "http://graph.facebook.com/";
-	private static final String LINK_URL = "http://facebook.com/";
+	private static final String LINK_URL = "http://m.facebook.com/";
 	private static final String PARAMS = "?fields=name,from,created_time,comments,likes,link";
 
 	private Context context;
@@ -49,9 +51,6 @@ public class DetailItemActivity extends Activity {
 	private TextView writerDate;
 	private TextView writerName;
 	private ImageView writerPhoto;
-	
-	private MenuItem likeMenu;
-	private MenuItem replyMenu;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +69,18 @@ public class DetailItemActivity extends Activity {
 		itemTitle = (TextView) this.findViewById(R.id.item_title);
 		writerDate = (TextView) this.findViewById(R.id.writer_date);
 		writerName = (TextView) this.findViewById(R.id.writer_name);
+		writerName.setTypeface(null, Typeface.BOLD);
 		writerName.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				/*
 				Intent intent = new Intent(DetailItemActivity.this, WebViewActivity.class);
 				intent.putExtra("LINK", LINK_URL + item.getWriterId());
 				startActivity(intent);
 				overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_forward_leave);
+				*/
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_URL + item.getWriterId()));
+				startActivity(intent);
 			}
 		});
 		
@@ -101,8 +105,6 @@ public class DetailItemActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.detail_item, menu);
-		replyMenu = menu.findItem(R.id.detail_item_action_reply);
-		likeMenu = menu.findItem(R.id.detail_item_action_like);
 
 		return true;
 	}
@@ -127,11 +129,11 @@ public class DetailItemActivity extends Activity {
 		 * @param encoding
 		 */
 		kakaoLink.openKakaoLink(this, 
-				"http://link.kakao.com/?test-android-app", 
-				"First KakaoLink Message for send url.", 
+				item.getLink(), 
+				item.getName(), 
 				getPackageName(), 
 				getPackageManager().getPackageInfo(getPackageName(), 0).versionName, 
-				"KakaoLink Test App", 
+				context.getResources().getString(R.string.kakaolink_title), 
 				"UTF-8");
 	}
 	
@@ -148,15 +150,6 @@ public class DetailItemActivity extends Activity {
 			/*
 			NavUtils.navigateUpFromSameTask(this);
 			*/
-			break;
-		case R.id.detail_item_action_like:
-			Toast.makeText(this, R.string.detail_item_action_like_toast, Toast.LENGTH_SHORT).show();
-			break;
-		case R.id.detail_item_action_reply:
-			Toast.makeText(this, R.string.detail_item_action_reply_toast, Toast.LENGTH_SHORT).show();
-			break;
-		case R.id.detail_item_action_info:
-			Toast.makeText(this, R.string.detail_item_action_info_toast, Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.detail_item_sub_action_kakao:
 			/*
@@ -176,10 +169,8 @@ public class DetailItemActivity extends Activity {
 			Toast.makeText(this, R.string.detail_item_sub_action_kakao_toast, Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.detail_item_sub_action_detailview:
-			Intent intent = new Intent(DetailItemActivity.this, WebViewActivity.class);
-			intent.putExtra("LINK", this.item.getLink());
-			this.startActivity(intent);
-			this.overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_forward_leave);
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(this.item.getLink()));
+			startActivity(intent);
 			Toast.makeText(this, R.string.detail_item_sub_action_detailview_toast, Toast.LENGTH_SHORT).show();
 			break;
 		default:
@@ -296,15 +287,6 @@ public class DetailItemActivity extends Activity {
 				writerName.setText(json.getJSONObject("from").getString("name"));
 				writerDate.setText(json.getString("created_time"));
 				item.setLink(json.getString("link"));
-				int count;
-				count = json.getJSONObject("comments").getJSONArray("data").length();
-				replyMenu.setTitle(
-						context.getResources().getString(R.string.detail_item_action_reply)
-						+ "(" + Integer.toString(count) + ")");
-				count = json.getJSONObject("likes").getJSONArray("data").length();
-				likeMenu.setTitle(
-						context.getResources().getString(R.string.detail_item_action_like)
-						+ "(" + Integer.toString(count) + ")");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

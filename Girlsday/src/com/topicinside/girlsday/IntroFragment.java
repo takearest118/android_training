@@ -45,9 +45,11 @@ public class IntroFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.activity_intro, container, false);
+		/*
 		LoginButton authButton = (LoginButton) view.findViewById(R.id.facebook_login);
 		authButton.setFragment(this);
 		authButton.setReadPermissions(Arrays.asList("basic_info"));
+		*/
 		return view;
 	}
 	

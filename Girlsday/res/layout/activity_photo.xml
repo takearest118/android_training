@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="#000000"
     android:layout_gravity="center"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
@@ -13,5 +14,5 @@
         android:background="#000000"
         android:contentDescription="item_image_desc"
         android:onClick="clickImage"
-        android:scaleType="centerInside" />
+        android:scaleType="fitStart" />
 </FrameLayout>

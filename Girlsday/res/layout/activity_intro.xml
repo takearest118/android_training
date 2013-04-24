@@ -13,32 +13,6 @@
         android:layout_gravity="center"
         android:contentDescription="intro_image"
         android:scaleType="fitXY"
-        android:src="@drawable/girlsday_sample17" />
-
-    <LinearLayout
-        android:id="@+id/intro_button_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:gravity="center"
-        android:orientation="vertical" >
-    
-	    <com.facebook.widget.LoginButton
-	        android:id="@+id/facebook_login"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:layout_marginLeft="16dp"
-	        android:layout_marginRight="16dp" />
-	    
-	    <Button
-	        android:id="@+id/guest_login"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:layout_marginLeft="16dp"
-	        android:layout_marginRight="16dp"
-	        android:text="@string/intro_guest_button"
-	        android:onClick="clickGuest" />
-
-    </LinearLayout>
+        android:src="@drawable/splash" />
 
 </FrameLayout>
