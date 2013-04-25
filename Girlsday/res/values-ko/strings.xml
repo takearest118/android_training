@@ -6,7 +6,10 @@
 
     <string name="click_item">아이템 선택</string>
 
-    <string name="detail_item_action_like">좋아요</string>
+ 	<string name="action_refresh">다시 불러오기</string>
+	<string name="action_refresh_toast">다시 불러오기를 선택</string>
+	   
+	<string name="detail_item_action_like">좋아요</string>
     <string name="detail_item_action_like_toast">좋아요를 선택</string>
     <string name="detail_item_action_reply">댓글쓰기</string>
     <string name="detail_item_action_reply_toast">댓글쓰기 선택</string>
@@ -24,5 +27,9 @@
     
     <string name="kakaolink_title">걸스데이 in 토픽인사이드</string>
     <string name="kakaolink_message"></string>
+
+    <string name="list_end_message">리스트의 끝입니다.</string>
+    
+    <string name="photo_save">저장하기</string>
     
 </resources>

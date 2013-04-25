@@ -10,6 +10,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,11 +88,6 @@ public class DetailItemActivity extends Activity {
 		itemView.setTag(item.getSource());
 		new DownLoadImageBitmap().execute(itemView);
 		
-		/*
-		writerPhoto.setTag(item.getWriterPhoto());
-		new DownLoadImageBitmap().execute(writerPhoto);
-		*/
-
 		ActionBar actionBar = this.getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(false);
 		actionBar.setHomeButtonEnabled(false);
@@ -128,14 +124,26 @@ public class DetailItemActivity extends Activity {
 		 * @param appName
 		 * @param encoding
 		 */
-		kakaoLink.openKakaoLink(this, 
+		
+		/*
+		ArrayList<Map<String, String>> metaInfoArray = new ArrayList<Map<String,String>>();
+		kakaoLink.openKakaoAppLink(this, 
 				item.getLink(), 
-				item.getName(), 
+				item.getWriterName() + "님의 사진을 공유하였습니다.", 
 				getPackageName(), 
 				getPackageManager().getPackageInfo(getPackageName(), 0).versionName, 
-				context.getResources().getString(R.string.kakaolink_title), 
+				"토픽인사이드", 
+				"UTF-8",
+				metaInfoArray);
+				*/
+		kakaoLink.openKakaoLink(this, 
+				item.getLink(), 
+				item.getWriterName() + "님의 사진을 공유하였습니다.", 
+				getPackageName(), 
+				getPackageManager().getPackageInfo(getPackageName(), 0).versionName, 
+				"토픽인사이드", 
 				"UTF-8");
-	}
+		}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -284,8 +292,14 @@ public class DetailItemActivity extends Activity {
 				JSONObject json = new JSONObject(result);
 				itemTitle.setText(json.getString("name"));
 				item.setWriterId(json.getJSONObject("from").getString("id"));
+				item.setWriterName(json.getJSONObject("from").getString("name"));
 				writerName.setText(json.getJSONObject("from").getString("name"));
-				writerDate.setText(json.getString("created_time"));
+				item.setCreatedtime(json.getString("created_time"));
+				Date date = new Date();
+				date.setYear(Integer.parseInt(item.getCreatedtime().substring(0, 4)) - 1900);
+				date.setMonth(Integer.parseInt(item.getCreatedtime().substring(5, 7)) - 1);
+				date.setDate(Integer.parseInt(item.getCreatedtime().substring(8, 10)));
+				writerDate.setText(android.text.format.DateFormat.getDateFormat(context).format(date).toString());
 				item.setLink(json.getString("link"));
 			} catch (JSONException e) {
 				e.printStackTrace();

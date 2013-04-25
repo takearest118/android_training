@@ -30,4 +30,8 @@
     <string name="kakaolink_title">GirlsDay in Topic Inside</string>
     <string name="kakaolink_message"></string>
     
+    <string name="list_end_message">End of list</string>
+    
+    <string name="photo_save">Save</string>
+    
 </resources>

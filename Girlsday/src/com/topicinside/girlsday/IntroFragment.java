@@ -1,7 +1,5 @@
 package com.topicinside.girlsday;
 
-import java.util.Arrays;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,7 +16,6 @@ import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphObject;
 import com.facebook.model.GraphUser;
-import com.facebook.widget.LoginButton;
 
 public class IntroFragment extends Fragment {
 	

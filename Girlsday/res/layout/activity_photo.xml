@@ -8,11 +8,21 @@
     
     <ImageView
         android:id="@+id/item_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:background="#000000"
         android:contentDescription="item_image_desc"
         android:onClick="clickImage"
-        android:scaleType="fitStart" />
+        android:scaleType="center" />
+
+    <Button
+        android:id="@+id/photo_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_margin="16dp"
+        android:onClick="clickSave"
+        android:text="@string/photo_save" />
+
 </FrameLayout>

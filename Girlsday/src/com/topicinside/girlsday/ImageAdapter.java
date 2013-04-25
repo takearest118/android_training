@@ -132,8 +132,11 @@ public class ImageAdapter extends BaseAdapter {
 				int response = conn.getResponseCode();
 				Log.d(DEBUG_TAG, "The response is: " + response);
 				is = conn.getInputStream();
+				
+				BitmapFactory.Options bfo = new BitmapFactory.Options();
+				bfo.inSampleSize = 2;
 				BufferedInputStream bis = new BufferedInputStream(is);
-				bm = BitmapFactory.decodeStream(bis);
+				bm = BitmapFactory.decodeStream(bis, null, bfo);
 				ImageCache.setImage(myurl, bm);
 				bis.close();
 			}finally {

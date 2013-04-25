@@ -1,8 +1,11 @@
 package com.topicinside.girlsday;
 
 import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -11,12 +14,15 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 public class PhotoActivity extends Activity {
@@ -32,6 +38,8 @@ public class PhotoActivity extends Activity {
 	
 	private Image item;
 	private ImageView itemView;
+	private Button saveButton;
+	private Bitmap bitmap;
 	
 	private ProgressDialog pd;
 
@@ -48,6 +56,9 @@ public class PhotoActivity extends Activity {
 		itemView = (ImageView) this.findViewById(R.id.item_image);
 		itemView.setTag(item.getSource());
 		new DownLoadImageBitmap().execute(itemView);
+		
+		saveButton = (Button) this.findViewById(R.id.photo_save);
+		saveButton.setVisibility(View.GONE);
 
 		actionBar = this.getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -59,7 +70,6 @@ public class PhotoActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
 		case android.R.id.home:
-			backDetailItemActivity();
 			break;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -68,16 +78,37 @@ public class PhotoActivity extends Activity {
 	}
 	
 	public void clickImage(View view) {
-		/*
-		backDetailItemActivity();
-		*/
+		if(mode == SCREEN_MODE.FULL) {
+			saveButton.setVisibility(View.VISIBLE);
+			mode = SCREEN_MODE.NORMAL;
+		}else if(mode == SCREEN_MODE.NORMAL) {
+			saveButton.setVisibility(View.GONE);
+			mode = SCREEN_MODE.FULL;
+		}
 	}
 	
-	public void backDetailItemActivity() {
-		Intent intent = new Intent(this, DetailItemActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intent);
-		this.overridePendingTransition(R.anim.slide_backward_enter, R.anim.slide_backward_leave);
+	public void clickSave(View view) {
+		this.saveBitmapToFileCache(bitmap, Environment.getExternalStorageDirectory() + 
+				"/test11111.jpg");
+	}
+	
+	private void saveBitmapToFileCache(Bitmap bitmap, String path) {
+		File fileCacheItem = new File(path);
+		OutputStream out = null;
+		
+		try {
+			fileCacheItem.createNewFile();
+			out = new FileOutputStream(fileCacheItem);
+			bitmap.compress(CompressFormat.JPEG, 100, out);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				out.close();
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public class DownLoadImageBitmap extends AsyncTask<ImageView, Integer, Bitmap> {
@@ -119,6 +150,7 @@ public class PhotoActivity extends Activity {
 		@Override
 		protected void onPostExecute(Bitmap result) {
 			this.imageView.setImageBitmap(result);
+			bitmap = result;
 			pd.dismiss();
 		}
 		

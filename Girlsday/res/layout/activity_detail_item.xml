@@ -13,10 +13,10 @@
 	    <ImageView
 	        android:id="@+id/item_image"
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="match_parent"
 	        android:contentDescription="item_image"
 	        android:onClick="clickItemImage"
-	        android:scaleType="centerInside" />
+	        android:scaleType="center" />
 	    
 	    <RelativeLayout
 	        android:layout_marginTop="8dp"

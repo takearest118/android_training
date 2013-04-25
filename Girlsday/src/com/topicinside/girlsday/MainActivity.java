@@ -39,7 +39,7 @@ public class MainActivity extends Activity implements OnScrollListener {
 	private static final String ROOT_URL = "https://graph.facebook.com" +
 			"/GirlsDayParty" +
 			"/photos" +
-			"?limit=10" +
+			"?limit=30" +
 			"&type=uploaded" +
 			"&fields=id,picture,source" +
 			"&after=";
@@ -51,6 +51,7 @@ public class MainActivity extends Activity implements OnScrollListener {
 	
 	private GridView imageView;
 	private boolean lockGridView;
+	private boolean endList;
 	
 	private ProgressDialog pd;
 	
@@ -60,6 +61,7 @@ public class MainActivity extends Activity implements OnScrollListener {
 		setContentView(R.layout.activity_main);
 		
 		lockGridView = false;
+		endList = false;
 		
 		imageView = (GridView) this.findViewById(R.id.item_grid_view);
 		
@@ -95,6 +97,7 @@ public class MainActivity extends Activity implements OnScrollListener {
 			imageList.clear();
 			ia.notifyDataSetChanged();
 			Toast.makeText(this, R.string.action_refresh_toast, Toast.LENGTH_SHORT).show();
+			endList = false;
 			break;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -115,15 +118,22 @@ public class MainActivity extends Activity implements OnScrollListener {
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-		if(firstVisibleItem == 0 && visibleItemCount == 0 && lockGridView == false) {
+		if(firstVisibleItem == 0 && visibleItemCount == 0 && lockGridView == false && endList == false) {
 			lockGridView = true;
 			new DownLoadImageUrl().execute(ROOT_URL);
 		}
 		int count = firstVisibleItem + visibleItemCount;
 		if(count >= totalItemCount
 				&& firstVisibleItem != 0
-				&& lockGridView == false) {
+				&& lockGridView == false
+				&& endList == false) {
 			lockGridView = true;
+			if(next.equals("")) {
+				Toast.makeText(this, R.string.list_end_message, Toast.LENGTH_SHORT).show();
+				lockGridView = false;
+				endList = true;
+				return;
+			}
 			new DownLoadImageUrl().execute(ROOT_URL + next);
 		}
 		Log.d(DEBUG_TAG, "firstVisibleItem = " + Integer.toString(firstVisibleItem));
@@ -224,8 +234,12 @@ public class MainActivity extends Activity implements OnScrollListener {
 			try {
 				mGirlsDay = new JSONObject(result);
 				JSONArray mData = mGirlsDay.getJSONArray("data");
-				next = mGirlsDay.getJSONObject("paging")
-						.getJSONObject("cursors").getString("after");
+				if(mGirlsDay.has("paging")) {
+					next = mGirlsDay.getJSONObject("paging")
+							.getJSONObject("cursors").getString("after");
+				}else {
+					next = "";
+				}
 				for(int i=0; i<mData.length(); i++) {
 					JSONObject el = mData.getJSONObject(i);
 					String id = el.getString("id");
