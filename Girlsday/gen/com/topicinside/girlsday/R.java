@@ -220,10 +220,11 @@ containing a value of this type.
         public static final int com_facebook_top_background=0x7f02001d;
         public static final int com_facebook_top_button=0x7f02001e;
         public static final int com_facebook_usersettingsfragment_background_gradient=0x7f02001f;
-        public static final int ic_launcher=0x7f020020;
-        public static final int item_grid_stroke=0x7f020021;
-        public static final int profile_cover=0x7f020022;
-        public static final int splash=0x7f020023;
+        public static final int girlsday_sample02=0x7f020020;
+        public static final int ic_launcher=0x7f020021;
+        public static final int item_grid_stroke=0x7f020022;
+        public static final int profile_cover=0x7f020023;
+        public static final int splash=0x7f020024;
     }
     public static final class id {
         public static final int action_refresh=0x7f050024;
@@ -322,6 +323,9 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_log_in_button=0x7f060008;
         public static final int com_facebook_usersettingsfragment_logged_in=0x7f060009;
         public static final int com_facebook_usersettingsfragment_not_logged_in=0x7f06000a;
+        public static final int connection_message=0x7f060033;
+        public static final int connection_title=0x7f060032;
+        public static final int connection_warning_message=0x7f060034;
         public static final int detail_item_action_info=0x7f060024;
         public static final int detail_item_action_info_toast=0x7f060025;
         public static final int detail_item_action_like=0x7f060020;
@@ -339,6 +343,7 @@ containing a value of this type.
         public static final int loading_message=0x7f06002c;
         public static final int loading_title=0x7f06002b;
         public static final int photo_save=0x7f060030;
+        public static final int photo_save_toast=0x7f060031;
     }
     public static final class style {
         /** 

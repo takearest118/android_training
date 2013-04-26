@@ -16,6 +16,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class PhotoActivity extends Activity {
 	
@@ -34,6 +37,8 @@ public class PhotoActivity extends Activity {
 	
 	public SCREEN_MODE mode = SCREEN_MODE.FULL;
 	
+	private static final String PREFIX_IMAGE_FILE = "girlsday";
+	private static final String SUFFIX_IMAGE_FILE = ".jpg";
 	ActionBar actionBar;
 	
 	private Image item;
@@ -88,23 +93,35 @@ public class PhotoActivity extends Activity {
 	}
 	
 	public void clickSave(View view) {
-		this.saveBitmapToFileCache(bitmap, Environment.getExternalStorageDirectory() + 
-				"/test11111.jpg");
+		Integer epochtime = (int)System.currentTimeMillis();
+		File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		path.mkdirs();
+		File file = new File(path, PREFIX_IMAGE_FILE + epochtime.toString() + SUFFIX_IMAGE_FILE);
+		this.saveBitmapToFileCache(bitmap, file);
 	}
 	
-	private void saveBitmapToFileCache(Bitmap bitmap, String path) {
-		File fileCacheItem = new File(path);
-		OutputStream out = null;
+	private void saveBitmapToFileCache(Bitmap bitmap, File file) {
+		OutputStream os = null;
 		
 		try {
-			fileCacheItem.createNewFile();
-			out = new FileOutputStream(fileCacheItem);
-			bitmap.compress(CompressFormat.JPEG, 100, out);
+			os = new FileOutputStream(file);
+			bitmap.compress(CompressFormat.JPEG, 100, os);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			try {
-				out.close();
+				os.close();
+				Toast.makeText(this.getApplicationContext(), R.string.photo_save_toast, Toast.LENGTH_SHORT).show();
+				MediaScannerConnection.scanFile(this,
+						new String[] { file.toString() }, null, 
+						new MediaScannerConnection.OnScanCompletedListener() {
+							
+							@Override
+							public void onScanCompleted(String path, Uri uri) {
+								Log.i("ExternalStorage", "Scanned " + path + ":");
+								Log.i("ExternalStorage", "-> uri=" + uri);
+							}
+						});
 			}catch (IOException e) {
 				e.printStackTrace();
 			}

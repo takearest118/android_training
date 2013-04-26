@@ -73,10 +73,11 @@ int drawable com_facebook_profile_picture_blank_square 0x7f02001c
 int drawable com_facebook_top_background 0x7f02001d
 int drawable com_facebook_top_button 0x7f02001e
 int drawable com_facebook_usersettingsfragment_background_gradient 0x7f02001f
-int drawable ic_launcher 0x7f020020
-int drawable item_grid_stroke 0x7f020021
-int drawable profile_cover 0x7f020022
-int drawable splash 0x7f020023
+int drawable girlsday_sample02 0x7f020020
+int drawable ic_launcher 0x7f020021
+int drawable item_grid_stroke 0x7f020022
+int drawable profile_cover 0x7f020023
+int drawable splash 0x7f020024
 int id action_refresh 0x7f050024
 int id com_facebook_login_activity_progress_bar 0x7f05000f
 int id com_facebook_picker_activity_circle 0x7f05000e
@@ -167,6 +168,9 @@ int string com_facebook_requesterror_web_login 0x7f060014
 int string com_facebook_usersettingsfragment_log_in_button 0x7f060008
 int string com_facebook_usersettingsfragment_logged_in 0x7f060009
 int string com_facebook_usersettingsfragment_not_logged_in 0x7f06000a
+int string connection_message 0x7f060033
+int string connection_title 0x7f060032
+int string connection_warning_message 0x7f060034
 int string detail_item_action_info 0x7f060024
 int string detail_item_action_info_toast 0x7f060025
 int string detail_item_action_like 0x7f060020
@@ -184,6 +188,7 @@ int string list_end_message 0x7f06002f
 int string loading_message 0x7f06002c
 int string loading_title 0x7f06002b
 int string photo_save 0x7f060030
+int string photo_save_toast 0x7f060031
 int style AppBaseTheme 0x7f090002
 int style AppTheme 0x7f090003
 int style com_facebook_loginview_default_style 0x7f090000

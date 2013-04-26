@@ -33,5 +33,10 @@
     <string name="list_end_message">End of list</string>
     
     <string name="photo_save">Save</string>
+    <string name="photo_save_toast">Completed</string>
+    
+    <string name="connection_title">Network connection</string>
+    <string name="connection_message">Connected internet</string>
+    <string name="connection_warning_message">Check your internet connection</string>
     
 </resources>

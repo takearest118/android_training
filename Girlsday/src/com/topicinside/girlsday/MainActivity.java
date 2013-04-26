@@ -17,8 +17,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +39,10 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements OnScrollListener {
 	
 	static final String DEBUG_TAG = "MainActivity";
+	
+	private boolean wifiConnected = false;
+	private boolean mobileConnected = false;
+	
 	static final String STATE_IMAGES = "imageList";
 	
 	private static final String ROOT_URL = "https://graph.facebook.com" +
@@ -60,6 +69,8 @@ public class MainActivity extends Activity implements OnScrollListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		updateConnectedFlags();
+		
 		lockGridView = false;
 		endList = false;
 		
@@ -67,8 +78,25 @@ public class MainActivity extends Activity implements OnScrollListener {
 		
 		imageList = new ArrayList<Image>();
 		ia = new ImageAdapter(this, imageList);
-		imageView.setAdapter(ia);
-		imageView.setOnScrollListener(this);
+		
+		if(wifiConnected || mobileConnected) {
+        	Toast.makeText(getApplicationContext(), R.string.connection_message, Toast.LENGTH_LONG).show();
+
+			imageView.setAdapter(ia);
+			imageView.setOnScrollListener(this);
+		}else {
+        	AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+        	alert.setPositiveButton("»Æ¿Œ", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			});
+        	alert.setTitle(R.string.connection_title);
+        	alert.setMessage(R.string.connection_warning_message);
+        	alert.show();
+		}
 	}
 	
 	@Override
@@ -104,7 +132,20 @@ public class MainActivity extends Activity implements OnScrollListener {
 		}
 		return true;
 	}
-	
+    private void updateConnectedFlags() {
+        ConnectivityManager connMgr =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeInfo = connMgr.getActiveNetworkInfo();
+        if (activeInfo != null && activeInfo.isConnected()) {
+            wifiConnected = activeInfo.getType() == ConnectivityManager.TYPE_WIFI;
+            mobileConnected = activeInfo.getType() == ConnectivityManager.TYPE_MOBILE;
+        } else {
+            wifiConnected = false;
+            mobileConnected = false;
+        }
+    }
+
 	public void clickItem(View view) {
 		ImageView imageView = (ImageView)view;
 		Intent intent = new Intent(MainActivity.this, DetailItemActivity.class);

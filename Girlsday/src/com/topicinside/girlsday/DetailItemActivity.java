@@ -227,10 +227,18 @@ public class DetailItemActivity extends Activity {
 		// onPostExecute displays the results of the AsyncTask
 		@Override
 		protected void onPostExecute(Bitmap result) {
-			this.imageView.setImageBitmap(result);
+			float scalingFactor = this.getBitmapScalingFactor(result);
+			Bitmap newBitmap = Util.ScaleBitmap(result, scalingFactor);
+			this.imageView.setImageBitmap(newBitmap);
 			pd.dismiss();
 		}
 		
+		public float getBitmapScalingFactor(Bitmap bm) {
+			int displayWidth = getWindowManager().getDefaultDisplay().getWidth();
+			Log.d("DEBUG", Integer.toString(displayWidth));
+			return ((float)displayWidth / (float)bm.getWidth());
+		}
+
 		private Bitmap downloadUrl(String myurl) throws IOException {
 			InputStream is = null;
 			Bitmap bm = null;

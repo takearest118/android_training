@@ -14,7 +14,7 @@
         android:background="#000000"
         android:contentDescription="item_image_desc"
         android:onClick="clickImage"
-        android:scaleType="center" />
+        android:scaleType="fitCenter" />
 
     <Button
         android:id="@+id/photo_save"
