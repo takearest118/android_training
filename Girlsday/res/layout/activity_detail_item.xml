@@ -27,8 +27,7 @@
 	            android:id="@+id/writer_photo"
 	            android:layout_width="32dp"
 	            android:layout_height="32dp"
-	            android:layout_marginLeft="16dp"
-	            android:src="@drawable/profile_cover" />
+	            android:layout_marginLeft="16dp" />
 	
 	        <TextView
 	            android:id="@+id/writer_name"

@@ -16,7 +16,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -27,8 +26,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -36,7 +33,15 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements OnScrollListener {
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
+
+
+
+
+public class MainActivity extends SherlockActivity implements OnScrollListener {
 	
 	static final String DEBUG_TAG = "MainActivity";
 	
@@ -91,6 +96,7 @@ public class MainActivity extends Activity implements OnScrollListener {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
+					finish();
 				}
 			});
         	alert.setTitle(R.string.connection_title);
@@ -113,25 +119,42 @@ public class MainActivity extends Activity implements OnScrollListener {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		// TODO Auto-generated method stub
+		this.getSupportMenuInflater().inflate(R.menu.main, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
 		case R.id.action_refresh:
-			imageList.clear();
-			ia.notifyDataSetChanged();
-			Toast.makeText(this, R.string.action_refresh_toast, Toast.LENGTH_SHORT).show();
-			endList = false;
+			updateConnectedFlags();
+			if(wifiConnected || mobileConnected) {
+				imageList.clear();
+				ia.notifyDataSetChanged();
+				Toast.makeText(this, R.string.action_refresh_toast, Toast.LENGTH_SHORT).show();
+				endList = false;
+			}else {
+	        	AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+	        	alert.setPositiveButton("È®ÀÎ", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						finish();
+					}
+				});
+	        	alert.setTitle(R.string.connection_title);
+	        	alert.setMessage(R.string.connection_warning_message);
+	        	alert.show();
+			}
 			break;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 		return true;
 	}
+	
     private void updateConnectedFlags() {
         ConnectivityManager connMgr =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -163,6 +186,7 @@ public class MainActivity extends Activity implements OnScrollListener {
 			lockGridView = true;
 			new DownLoadImageUrl().execute(ROOT_URL);
 		}
+		
 		int count = firstVisibleItem + visibleItemCount;
 		if(count >= totalItemCount
 				&& firstVisibleItem != 0
@@ -187,56 +211,7 @@ public class MainActivity extends Activity implements OnScrollListener {
 		// TODO Auto-generated method stub
 		Log.d(DEBUG_TAG, "scrollState = " + Integer.toString(scrollState));
 	}
-	
-	
-	
-	private String downloadUrl(String myurl) throws IOException {
-		InputStream is = null;
-		
-		try {
-			URL url = new URL(myurl);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setReadTimeout(10000 /* milliseconds */);
-			conn.setConnectTimeout(15000 /* milliseconds */);
-			conn.setRequestMethod("GET");
-			conn.setDoInput(true);
-			// Starts the query
-			conn.connect();
-			int response = conn.getResponseCode();
-			Log.d(DEBUG_TAG, "The response is: " + response);
-			is = conn.getInputStream();
 			
-			// Convert the InputStream into a string
-			String contentAsString = this.convertStreamToString(is);
-			
-			return contentAsString;
-		}finally {
-			if(is != null) {
-				is.close();
-			}
-		}
-	}
-	
-	public String convertStreamToString(InputStream is) throws IOException {
-		if(is != null) {
-			Writer writer = new StringWriter();
-			
-			char[] buffer = new char[1024];
-			try {
-				Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-				int n;
-				while((n=reader.read(buffer)) != -1) {
-					writer.write(buffer, 0, n);
-				}
-			} finally {
-				is.close();
-			}
-			return writer.toString();
-		}else {
-			return null;
-		}
-	}
-	
 	public class DownLoadImageUrl extends AsyncTask<String, Integer, String> {
 		
 		private static final String DEBUG_TAG = "DownLoadImageUrl";

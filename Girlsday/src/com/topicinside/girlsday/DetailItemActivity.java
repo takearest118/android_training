@@ -15,8 +15,6 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -28,19 +26,24 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DetailItemActivity extends Activity {
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
+public class DetailItemActivity extends SherlockActivity {
 	
-	private static final String BASE_URL = "http://graph.facebook.com/";
-	private static final String LINK_URL = "http://m.facebook.com/";
+	private static final String BASE_URL = "https://graph.facebook.com/";
 	private static final String PARAMS = "?fields=name,from,created_time,comments,likes,link";
+	private static final String ACCESS_TOKEN = "&access_token=168059013349612|1uyBXwMp5tQJ3FEbi7sz1srt_gA";
+	
+	private static final String LINK_URL = "http://m.facebook.com/";
 
 	private Context context;
 	
@@ -68,6 +71,7 @@ public class DetailItemActivity extends Activity {
 				
 		itemView = (ImageView) this.findViewById(R.id.item_image);
 		itemTitle = (TextView) this.findViewById(R.id.item_title);
+		writerPhoto = (ImageView) this.findViewById(R.id.writer_photo);
 		writerDate = (TextView) this.findViewById(R.id.writer_date);
 		writerName = (TextView) this.findViewById(R.id.writer_name);
 		writerName.setTypeface(null, Typeface.BOLD);
@@ -88,23 +92,22 @@ public class DetailItemActivity extends Activity {
 		itemView.setTag(item.getSource());
 		new DownLoadImageBitmap().execute(itemView);
 		
-		ActionBar actionBar = this.getActionBar();
+		ActionBar actionBar = this.getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(false);
 		actionBar.setHomeButtonEnabled(false);
 		actionBar.setTitle(R.string.app_name);
 		
 		DownLoadImage imageTask = new DownLoadImage();
-		imageTask.execute(BASE_URL + item.getId() + PARAMS);
+		imageTask.execute(BASE_URL + item.getId() + PARAMS + ACCESS_TOKEN);
 	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.detail_item, menu);
-
-		return true;
+		// TODO Auto-generated method stub
+		this.getSupportMenuInflater().inflate(R.menu.detail_item, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	public void sendUrlLink() throws NameNotFoundException {
 		// Recommended: Use application context for parameter.
 		KakaoLink kakaoLink = KakaoLink.getLink(getApplicationContext());
@@ -149,25 +152,8 @@ public class DetailItemActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
 		case android.R.id.home:
-			/*
-			Intent intent = new Intent(this, MainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			this.overridePendingTransition(R.anim.slide_backward_enter, R.anim.slide_backward_leave);
-			*/
-			/*
-			NavUtils.navigateUpFromSameTask(this);
-			*/
 			break;
 		case R.id.detail_item_sub_action_kakao:
-			/*
-			Intent kintent = new Intent(Intent.ACTION_SEND);
-			kintent.setType("text/plain");
-			kintent.putExtra(Intent.EXTRA_SUBJECT, "TEST_Subject");
-			kintent.putExtra(Intent.EXTRA_TEXT, "Å×½ºÆ®¸Þ¼¼Áö¿¡¿ä È«È«");
-			kintent.setPackage("com.kakao.talk");
-			startActivity(kintent);
-			*/
 			try {
 				sendUrlLink();
 			} catch (NameNotFoundException e) {
@@ -301,6 +287,7 @@ public class DetailItemActivity extends Activity {
 				itemTitle.setText(json.getString("name"));
 				item.setWriterId(json.getJSONObject("from").getString("id"));
 				item.setWriterName(json.getJSONObject("from").getString("name"));
+				writerPhoto.setImageResource(R.drawable.profile_cover);
 				writerName.setText(json.getJSONObject("from").getString("name"));
 				item.setCreatedtime(json.getString("created_time"));
 				Date date = new Date();

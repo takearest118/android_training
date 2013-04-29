@@ -9,8 +9,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,13 +20,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class PhotoActivity extends Activity {
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+
+public class PhotoActivity extends SherlockActivity {
 	
 	enum SCREEN_MODE {
 		FULL,
@@ -39,7 +39,6 @@ public class PhotoActivity extends Activity {
 	
 	private static final String PREFIX_IMAGE_FILE = "girlsday";
 	private static final String SUFFIX_IMAGE_FILE = ".jpg";
-	ActionBar actionBar;
 	
 	private Image item;
 	private ImageView itemView;
@@ -65,23 +64,19 @@ public class PhotoActivity extends Activity {
 		saveButton = (Button) this.findViewById(R.id.photo_save);
 		saveButton.setVisibility(View.GONE);
 
-		actionBar = this.getActionBar();
+		ActionBar actionBar = this.getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setTitle(R.string.app_name);
 		actionBar.hide();
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()) {
-		case android.R.id.home:
-			break;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-		return true;
+	public boolean onOptionsItemSelected(
+			com.actionbarsherlock.view.MenuItem item) {
+		// TODO Auto-generated method stub
+		return super.onOptionsItemSelected(item);
 	}
-	
+
 	public void clickImage(View view) {
 		if(mode == SCREEN_MODE.FULL) {
 			saveButton.setVisibility(View.VISIBLE);
