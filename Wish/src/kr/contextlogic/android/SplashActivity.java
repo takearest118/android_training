@@ -11,7 +11,7 @@ import android.widget.ImageView.ScaleType;
 
 public class SplashActivity extends Activity {
 	
-	private static final int DELAY_TIME = 10000;
+	private static final int DELAY_TIME = 3000;
 	
 	private ImageView splashImage;
 	

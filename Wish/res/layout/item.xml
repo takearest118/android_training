@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_grid_stroke"
+    android:gravity="center"
+    android:orientation="vertical" >
+    
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="6dp"
+        android:background="#FFFFFF"
+        android:scaleType="centerCrop" />
+
+	<LinearLayout
+	    android:id="@+id/item_buttons_layout"
+	    android:layout_width="match_parent"
+	    android:layout_height="32dp"
+	    android:background="#ECECEC"
+	    android:gravity="center_horizontal"
+	    android:layout_margin="2dp"
+	    android:orientation="horizontal" >
+        
+	    <RelativeLayout
+	        android:id="@+id/item_wish_button"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:layout_margin="2dp"
+	        android:layout_weight="1" >
+	        <ImageView
+	            android:id="@+id/item_wish_image"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/ic_action_star" />
+
+	        <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerVertical="true"
+	            android:layout_toRightOf="@+id/item_wish_image"
+	            android:text="Wish"
+	            android:textSize="12sp" />
+	    </RelativeLayout>
+	    
+	    <RelativeLayout
+	        android:id="@+id/item_recommend_button"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:layout_margin="2dp"
+	        android:layout_weight="1" >
+	        <ImageView
+	            android:id="@+id/item_recommend_image"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/ic_action_share" />
+
+	        <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerVertical="true"
+	            android:layout_toRightOf="@+id/item_recommend_image"
+	            android:text="Recomm"
+	            android:textSize="12sp" />
+	    </RelativeLayout>
+	    
+    </LinearLayout>
+
+</LinearLayout>
