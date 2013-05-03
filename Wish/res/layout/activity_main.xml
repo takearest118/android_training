@@ -35,7 +35,6 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:src="@drawable/top_logo" />
-
     </RelativeLayout>
 
     <TabHost
@@ -54,18 +53,52 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#293749"
+                android:layout_height="wrap_content"                
                 android:gravity="center_vertical|fill_horizontal" >
-
             </TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
-            </FrameLayout>
-            
+
+                <LinearLayout 
+                    android:id="@+id/home_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+					<GridView
+					    android:id="@+id/home_tab_grid_view"
+					    android:layout_width="0dip"
+					    android:layout_height="wrap_content"
+					    android:layout_weight="1"
+					    android:horizontalSpacing="5dp"
+					    android:numColumns="auto_fit"
+					    android:padding="5dp"
+					    android:stretchMode="columnWidth"
+					    android:background="#D3D3D3"
+					    android:verticalSpacing="5dp" >
+				    </GridView>
+			    </LinearLayout>
+                
+                <LinearLayout 
+                    android:id="@+id/profile_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                </LinearLayout>
+                
+                <LinearLayout 
+                    android:id="@+id/friend_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                </LinearLayout>
+                
+                <LinearLayout 
+                    android:id="@+id/more_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                </LinearLayout>
+                
+                </FrameLayout>
         </LinearLayout>
     </TabHost>
 

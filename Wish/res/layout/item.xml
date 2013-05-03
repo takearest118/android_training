@@ -35,7 +35,7 @@
 	            android:id="@+id/item_wish_image"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:src="@drawable/ic_action_star" />
+	            android:src="@drawable/ic_wish_on" />
 
 	        <TextView
 	            android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
 	            android:id="@+id/item_recommend_image"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:src="@drawable/ic_action_share" />
+	            android:src="@drawable/ic_recommend" />
 
 	        <TextView
 	            android:layout_width="wrap_content"

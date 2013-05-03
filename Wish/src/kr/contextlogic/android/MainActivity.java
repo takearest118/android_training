@@ -2,11 +2,12 @@ package kr.contextlogic.android;
 
 import kr.contextlogic.R;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -18,12 +19,25 @@ public class MainActivity extends Activity {
 		HOME, PROFILE, FRIEND, MORE
 	};
 	
+	View homeView;
+	View profileView;
+	View friendView;
+	View moreView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
 		createTabHost();
+		
+		homeView = (LinearLayout) this.findViewById(R.id.home_tab);
+		profileView = (LinearLayout) this.findViewById(R.id.profile_tab);
+		friendView = (LinearLayout) this.findViewById(R.id.friend_tab);
+		moreView = (LinearLayout) this.findViewById(R.id.more_tab);
+		
+		GridView mHomeGridView = (GridView) this.findViewById(R.id.home_tab_grid_view);
+		mHomeGridView.setAdapter(new HomeImageAdapter(this));
 	}
 	
 	private void createTabHost() {
@@ -45,7 +59,7 @@ public class MainActivity extends Activity {
 		textView.setText(getTabTextString(tab));
 		
 		spec.setIndicator(tv);
-		spec.setContent(getTabIntent(tab));
+		spec.setContent(getTabResource(tab));
 		tabHost.addTab(spec);
 	}
 	
@@ -54,16 +68,16 @@ public class MainActivity extends Activity {
 		
 		switch(tab) {
 		case HOME:
-			resId = R.drawable.ic_action_select_all;
+			resId = R.drawable.tab_home_selector;
 			break;
 		case PROFILE:
-			resId = R.drawable.ic_action_user;
+			resId = R.drawable.tab_profile_selector;
 			break;
 		case FRIEND:
-			resId = R.drawable.ic_action_video;
+			resId = R.drawable.tab_friend_selector;
 			break;
 		case MORE:
-			resId = R.drawable.ic_action_share;
+			resId = R.drawable.tab_more_selector;
 			break;
 		default:
 			break;
@@ -95,27 +109,27 @@ public class MainActivity extends Activity {
 		return str;
 	}
 	
-	private Intent getTabIntent(Tab tab) {
-		Intent intent = null;
+	private int getTabResource(Tab tab) {
+		int resId = -1;
 		
 		switch(tab) {
 		case HOME:
-			intent = new Intent(this, HomeTabActivity.class);
+			resId = R.id.home_tab;
 			break;
 		case PROFILE:
-			intent = new Intent(this, ProfileTabActivity.class);
+			resId = R.id.profile_tab;
 			break;
 		case FRIEND:
-			intent = new Intent(this, FriendTabActivity.class);
+			resId = R.id.friend_tab;
 			break;
 		case MORE:
-			intent = new Intent(this, MoreTabActivity.class);
+			resId = R.id.more_tab;
 			break;
 		default:
 			break;
 		}
 		
-		return intent;
+		return resId;
 	}
 	
 }
