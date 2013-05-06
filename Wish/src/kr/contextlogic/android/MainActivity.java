@@ -1,17 +1,16 @@
 package kr.contextlogic.android;
 
 import kr.contextlogic.R;
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 	
 	final static String DEBUG = MainActivity.class.getSimpleName();
 	
@@ -19,10 +18,7 @@ public class MainActivity extends Activity {
 		HOME, PROFILE, FRIEND, MORE
 	};
 	
-	View homeView;
-	View profileView;
-	View friendView;
-	View moreView;
+	FragmentTabHost tabHost;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,25 +26,17 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		createTabHost();
-		
-		homeView = (LinearLayout) this.findViewById(R.id.home_tab);
-		profileView = (LinearLayout) this.findViewById(R.id.profile_tab);
-		friendView = (LinearLayout) this.findViewById(R.id.friend_tab);
-		moreView = (LinearLayout) this.findViewById(R.id.more_tab);
-		
-		GridView mHomeGridView = (GridView) this.findViewById(R.id.home_tab_grid_view);
-		mHomeGridView.setAdapter(new HomeImageAdapter(this));
 	}
 	
 	private void createTabHost() {
-		TabHost tabHost = (TabHost) this.findViewById(R.id.wish_tabhost);
-		tabHost.setup();
+		tabHost = (FragmentTabHost) this.findViewById(R.id.wish_tabhost);
+		tabHost.setup(this, getSupportFragmentManager(), R.id.content);
 		for(Tab t : Tab.values()){
-			createTabView(tabHost, t);
+			tabHost.addTab(createTabSpec(t), getTabFragment(t), null);
 		}
 	}
 	
-	private void createTabView(TabHost tabHost, Tab tab) {
+	private TabHost.TabSpec createTabSpec(Tab tab) {
 		TabHost.TabSpec spec = tabHost.newTabSpec(getTabTextString(tab));
 
 		View tv = LayoutInflater.from(this).inflate(R.layout.tab_custom, null, false);
@@ -59,8 +47,31 @@ public class MainActivity extends Activity {
 		textView.setText(getTabTextString(tab));
 		
 		spec.setIndicator(tv);
-		spec.setContent(getTabResource(tab));
-		tabHost.addTab(spec);
+		
+		return spec;
+	}
+	
+	private Class<?> getTabFragment(Tab t) {
+		Class<?> c = null;
+		
+		switch(t) {
+		case HOME:
+			c = HomeTabFragment.class;
+			break;
+		case PROFILE:
+			c = ProfileTabFragment.class;
+			break;
+		case FRIEND:
+			c = FriendTabFragment.class;
+			break;
+		case MORE:
+			c = MoreTabFragment.class;
+			break;
+		default:
+			break;
+		}
+		
+		return c;
 	}
 	
 	private int getTabIconResource(Tab tab) {
@@ -86,7 +97,7 @@ public class MainActivity extends Activity {
 		return resId;
 	}
 	
-	private String getTabTextString(Tab tab) {
+	public String getTabTextString(Tab tab) {
 		String str = null;
 		
 		switch(tab) {
@@ -107,29 +118,6 @@ public class MainActivity extends Activity {
 		}
 		
 		return str;
-	}
-	
-	private int getTabResource(Tab tab) {
-		int resId = -1;
-		
-		switch(tab) {
-		case HOME:
-			resId = R.id.home_tab;
-			break;
-		case PROFILE:
-			resId = R.id.profile_tab;
-			break;
-		case FRIEND:
-			resId = R.id.friend_tab;
-			break;
-		case MORE:
-			resId = R.id.more_tab;
-			break;
-		default:
-			break;
-		}
-		
-		return resId;
 	}
 	
 }
