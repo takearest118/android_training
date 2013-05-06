@@ -69,28 +69,32 @@ public final class R {
         public static final int top_logo=0x7f020029;
     }
     public static final class id {
-        public static final int content=0x7f0a0005;
-        public static final int item=0x7f0a0007;
-        public static final int item_buttons_layout=0x7f0a0009;
-        public static final int item_image=0x7f0a0008;
-        public static final int item_recommend_button=0x7f0a000c;
-        public static final int item_recommend_image=0x7f0a000d;
-        public static final int item_wish_button=0x7f0a000a;
-        public static final int item_wish_image=0x7f0a000b;
-        public static final int splash_image=0x7f0a0006;
-        public static final int tab_custom_icon=0x7f0a000e;
-        public static final int tab_custom_text=0x7f0a000f;
+        public static final int content=0x7f0a0006;
+        public static final int home_tab=0x7f0a0008;
+        public static final int home_tab_grid_view=0x7f0a0009;
+        public static final int item=0x7f0a000a;
+        public static final int item_buttons_layout=0x7f0a000c;
+        public static final int item_image=0x7f0a000b;
+        public static final int item_recommend_button=0x7f0a000f;
+        public static final int item_recommend_image=0x7f0a0010;
+        public static final int item_wish_button=0x7f0a000d;
+        public static final int item_wish_image=0x7f0a000e;
+        public static final int splash_image=0x7f0a0007;
+        public static final int tab_custom_icon=0x7f0a0011;
+        public static final int tab_custom_text=0x7f0a0012;
         public static final int wish_actionbar=0x7f0a0000;
         public static final int wish_notify=0x7f0a0001;
         public static final int wish_search=0x7f0a0002;
-        public static final int wish_tabhost=0x7f0a0004;
+        public static final int wish_tabhost=0x7f0a0005;
         public static final int wish_toplogo=0x7f0a0003;
+        public static final int wish_toplogo_arrow=0x7f0a0004;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int activity_splash=0x7f030001;
-        public static final int item=0x7f030002;
-        public static final int tab_custom=0x7f030003;
+        public static final int fragment_home_tab=0x7f030002;
+        public static final int item=0x7f030003;
+        public static final int tab_custom=0x7f030004;
     }
     public static final class menu {
         public static final int splash=0x7f090000;

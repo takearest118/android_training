@@ -35,7 +35,14 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:src="@drawable/top_logo" />
-    </RelativeLayout>
+        <ImageView
+            android:id="@+id/wish_toplogo_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/wish_toplogo"
+            android:src="@drawable/top_btn_arrow_on" />
+        </RelativeLayout>
 
     
     <android.support.v4.app.FragmentTabHost

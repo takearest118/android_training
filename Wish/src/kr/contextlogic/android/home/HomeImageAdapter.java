@@ -1,4 +1,4 @@
-package kr.contextlogic.android;
+package kr.contextlogic.android.home;
 
 import kr.contextlogic.R;
 import android.content.Context;

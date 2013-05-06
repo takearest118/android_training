@@ -1,6 +1,10 @@
 package kr.contextlogic.android;
 
 import kr.contextlogic.R;
+import kr.contextlogic.android.friend.FriendTabFragment;
+import kr.contextlogic.android.home.HomeTabFragment;
+import kr.contextlogic.android.more.MoreTabFragment;
+import kr.contextlogic.android.profile.ProfileTabFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
