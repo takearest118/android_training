@@ -1,6 +1,7 @@
-package kr.contextlogic.android;
+package kr.contextlogic.android.splash;
 
 import kr.contextlogic.R;
+import kr.contextlogic.android.main.MainActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

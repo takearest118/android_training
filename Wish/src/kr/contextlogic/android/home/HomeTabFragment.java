@@ -120,6 +120,7 @@ public class HomeTabFragment extends Fragment implements OnScrollListener {
 		@Override
 		protected void onPostExecute(String result) {
 			Log.d(DEBUG_TAG, result);
+			/*
 			try {
 				JSONArray json = new JSONArray(result);
 				for(int i=0; i<json.length(); i++) {
@@ -130,6 +131,7 @@ public class HomeTabFragment extends Fragment implements OnScrollListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			*/
 			pd.dismiss();
 		}
 		

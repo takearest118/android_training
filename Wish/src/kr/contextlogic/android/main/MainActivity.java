@@ -1,4 +1,4 @@
-package kr.contextlogic.android;
+package kr.contextlogic.android.main;
 
 import kr.contextlogic.R;
 import kr.contextlogic.android.friend.FriendTabFragment;
