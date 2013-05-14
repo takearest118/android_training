@@ -15,6 +15,8 @@ public final class R {
         public static final int slide_backward_leave=0x7f040003;
         public static final int slide_forward_enter=0x7f040004;
         public static final int slide_forward_leave=0x7f040005;
+        public static final int slide_zoomin_backward_enter=0x7f040006;
+        public static final int slide_zoomout_forward_leave=0x7f040007;
     }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 

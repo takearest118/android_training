@@ -7,10 +7,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -23,14 +25,18 @@ import android.widget.ImageView;
 public class ImageAdapter extends BaseAdapter {
 	private static final String DEBUG_TAG = "ImageAdapter";
 	
+	private Context mContext;
 	private LayoutInflater mInflater;
 	private ArrayList<Image> imageList;
+	private ImageLoader mImageLoader;
 	
 	private Display display;
 	
 	public ImageAdapter(Context c, ArrayList<Image> _imageList) {
+		mContext = c;
 		mInflater = LayoutInflater.from(c);
 		this.imageList = _imageList;
+		mImageLoader = new ImageLoader(c, 0, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString());
 		display = ((WindowManager)c.getSystemService(c.WINDOW_SERVICE)).getDefaultDisplay();
 	}
 	
@@ -74,6 +80,7 @@ public class ImageAdapter extends BaseAdapter {
 		ImageView imageView = (ImageView) rootView.findViewById(R.id.item_image);
 		imageView.getLayoutParams().height = display.getHeight() / 3;
 
+		/*
 		Image tmpImg = imageList.get(position);
 		Bitmap tmpBmp = ImageCache.getImage(tmpImg.getSource());
 		if(tmpBmp == null) {
@@ -83,7 +90,10 @@ public class ImageAdapter extends BaseAdapter {
 		}else {
 			imageView.setImageBitmap(tmpBmp);
 		}
+		*/
+		
 		imageView.setId(position);
+		mImageLoader.displayImage(imageList.get(position).getSource(), (Activity)mContext, imageView);
 		
 		return rootView;
 	}

@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -78,7 +79,9 @@ public class DetailItemActivity extends SherlockActivity {
 		writerName.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				/*
+				/**
+				 * Using WebView
+				 * 
 				Intent intent = new Intent(DetailItemActivity.this, WebViewActivity.class);
 				intent.putExtra("LINK", LINK_URL + item.getWriterId());
 				startActivity(intent);
@@ -99,6 +102,16 @@ public class DetailItemActivity extends SherlockActivity {
 		
 		DownLoadImage imageTask = new DownLoadImage();
 		imageTask.execute(BASE_URL + item.getId() + PARAMS + ACCESS_TOKEN);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK) {
+			finish();
+			this.overridePendingTransition(R.anim.slide_zoomin_backward_enter, R.anim.slide_backward_leave);
+			return false;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 	
 	@Override
@@ -177,7 +190,7 @@ public class DetailItemActivity extends SherlockActivity {
 		Intent intent = new Intent(DetailItemActivity.this, PhotoActivity.class);
 		intent.putExtra("IMAGE", item);
 		this.startActivity(intent);
-		this.overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_forward_leave);
+		this.overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_zoomout_forward_leave);
 	}
 	
 	public class DownLoadImageBitmap extends AsyncTask<ImageView, Integer, Bitmap> {

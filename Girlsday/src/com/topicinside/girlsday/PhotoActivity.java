@@ -20,6 +20,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -68,6 +69,16 @@ public class PhotoActivity extends SherlockActivity {
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setTitle(R.string.app_name);
 		actionBar.hide();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK) {
+			finish();
+			this.overridePendingTransition(R.anim.slide_zoomin_backward_enter, R.anim.slide_backward_leave);
+			return false;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	@Override

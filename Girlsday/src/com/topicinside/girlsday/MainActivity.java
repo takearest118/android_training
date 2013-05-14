@@ -25,7 +25,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -69,11 +72,26 @@ public class MainActivity extends SherlockActivity implements OnScrollListener {
 	
 	private ProgressDialog pd;
 	
+	private Handler mHandler;
+	
+	private boolean mBackFlag;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		mBackFlag = false;
+		mHandler = new Handler() {
+
+			@Override
+			public void handleMessage(Message msg) {
+				if(msg.what == 0) {
+					mBackFlag = false;
+				}
+			}
+		};
+
 		updateConnectedFlags();
 		
 		lockGridView = false;
@@ -105,6 +123,21 @@ public class MainActivity extends SherlockActivity implements OnScrollListener {
 		}
 	}
 	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK) {
+			if(!mBackFlag) {
+				Toast.makeText(this, "'뒤로'버튼을 한번 더 누르시면 종료합니다.", Toast.LENGTH_SHORT).show();
+				mBackFlag = true;
+				mHandler.sendEmptyMessageDelayed(0, 2000);
+				return false;
+			}else {
+				finish();
+			}
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putParcelableArrayList(STATE_IMAGES, imageList);
@@ -175,7 +208,7 @@ public class MainActivity extends SherlockActivity implements OnScrollListener {
 		intent.putExtra("ID", imageList.get(imageView.getId()).getId());
 		intent.putExtra("SOURCE", imageList.get(imageView.getId()).getSource());
 		this.startActivity(intent);
-		this.overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_forward_leave);
+		this.overridePendingTransition(R.anim.slide_forward_enter, R.anim.slide_zoomout_forward_leave);
 		Toast.makeText(this, R.string.click_item, Toast.LENGTH_SHORT).show();
 	}
 
