@@ -4,6 +4,8 @@ int anim slide_backward_enter 0x7f040002
 int anim slide_backward_leave 0x7f040003
 int anim slide_forward_enter 0x7f040004
 int anim slide_forward_leave 0x7f040005
+int anim slide_zoomin_backward_enter 0x7f040006
+int anim slide_zoomout_forward_leave 0x7f040007
 int attr actionBarDivider 0x7f01000e
 int attr actionBarItemBackground 0x7f01000f
 int attr actionBarSize 0x7f01000d
